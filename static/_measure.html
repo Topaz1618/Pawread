@@ -1,0 +1,37 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><style>body{margin:0}iframe{width:1024px;height:700px;border:0}
+#out{position:fixed;left:0;top:0;background:#fff;color:#000;font:11px monospace;z-index:9;width:100%;white-space:pre-wrap;word-break:break-all}</style></head><body>
+<pre id="out">waiting</pre>
+<iframe id="f1" src="/static/_ref_faq.html"></iframe>
+<iframe id="f2" src="/static/_ref_orders.html"></iframe>
+<iframe id="f3" src="/"></iframe>
+<script>
+function measure(id,label){
+  const d=document.getElementById(id).contentDocument;
+  if(!d) return {label,err:'no doc'};
+  const out={label};
+  const hero=d.querySelector('section');
+  if(hero){const r=hero.getBoundingClientRect();out.hero={w:Math.round(r.width),h:Math.round(r.height)};}
+  const h1=d.querySelector('h1');
+  if(h1){const r=h1.getBoundingClientRect(),cs=getComputedStyle(h1);out.h1={text:h1.textContent.trim().slice(0,30),w:Math.round(r.width),h:Math.round(r.height),fs:cs.fontSize,fw:cs.fontWeight,ff:cs.fontFamily.slice(0,22),lh:cs.lineHeight,align:cs.textAlign};}
+  const p=h1?h1.nextElementSibling:null;
+  if(p&&p.tagName==='P'){const cs=getComputedStyle(p);out.desc={fs:cs.fontSize,align:cs.textAlign,maxw:cs.maxWidth};}
+  const badge=h1?h1.previousElementSibling:null;
+  if(badge)out.badge={text:badge.textContent.trim().slice(0,40),cls:(badge.className||'').slice(0,80)};
+  const ta=d.querySelector('textarea');
+  if(ta){const r=ta.getBoundingClientRect();out.textarea={w:Math.round(r.width),h:Math.round(r.height),wrapW:Math.round(ta.parentElement.getBoundingClientRect().width)};}
+  const inp=d.querySelector('input[type=search],input[placeholder]');
+  if(inp){const r=inp.getBoundingClientRect();out.input={w:Math.round(r.width),h:Math.round(r.height),wrapW:Math.round(inp.parentElement.getBoundingClientRect().width)};}
+  const card=d.querySelector('.order-card');
+  if(card){const r=card.getBoundingClientRect();out.card={w:Math.round(r.width),h:Math.round(r.height)};}
+  const main=d.querySelector('main');
+  if(main){const r=main.getBoundingClientRect();out.main={w:Math.round(r.width),left:Math.round(r.left)};}
+  const inner=main&&main.firstElementChild?main.firstElementChild:null;
+  if(inner){const r=inner.getBoundingClientRect();out.inner={w:Math.round(r.width),cls:(inner.className||'').slice(0,120)};}
+  return out;
+}
+function run(){
+  const res=[measure('f1','REF_faq'),measure('f2','REF_orders'),measure('f3','LIVE')];
+  document.getElementById('out').textContent=res.map(r=>JSON.stringify(r)).join('\n\n')+'\nVW='+window.innerWidth;
+}
+setTimeout(run,4000);
+</script></body></html>

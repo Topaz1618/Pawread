@@ -133,6 +133,9 @@
     if (s === 'pending') {
       return `<span class="px-space-sm py-0.5 rounded-full bg-pink-50 border border-pink-200/80 text-[#9d5b74] font-label-sm text-label-sm font-semibold">${esc(t('state.pending'))}</span>`;
     }
+    if (s === 'noted') {
+      return `<span class="px-space-sm py-0.5 rounded-full bg-emerald-50 border border-emerald-200/70 text-emerald-800 font-label-sm text-label-sm font-semibold flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-emerald-600"></span> ${esc(t('state.noted'))}</span>`;
+    }
     return `<span class="px-space-sm py-0.5 rounded-full bg-pink-50 border border-pink-200/80 text-[#9d5b74] font-label-sm text-label-sm font-semibold">${esc(t('state.' + s) || s)}</span>`;
   }
 
@@ -166,8 +169,10 @@
         ? `<span class="px-space-xs py-0.5 rounded-full bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm font-semibold">${esc(t('lib.unranked'))}</span>`
         : `<span class="px-space-xs py-0.5 rounded-full bg-pink-50 border border-pink-200/80 text-[#9d5b74] font-label-sm text-label-sm font-semibold">${esc(prioLabel(b.priority))}</span>`;
 
-      // 元信息行：译名（与 orders.html 的 meta 行一致）
+      // 元信息行：编号 • 译名（与 orders.html 的 meta 行一致）
+      // 作者放在右侧主位，meta 行不重复。
       const meta = [];
+      if (b.id) meta.push(`<span class="font-mono text-[#9d5b74] font-medium">#${esc(b.id)}</span>`);
       if (zh) meta.push(`<span class="text-[#9d5b74] font-medium">${esc(zh)}</span>`);
       const metaHtml = meta.length
         ? meta.map((m, i) => (i ? '<span>•</span>' : '') + m).join('')
@@ -177,6 +182,11 @@
         ? 'bg-purple-100/70 border-purple-200/60 text-[#7a5980]'
         : 'bg-surface-container-highest border-zinc-200 text-on-surface-variant';
       const iconName = b.has_note ? 'menu_book' : 'hourglass_empty';
+
+      // 右侧：主位 + 补充说明（与 orders.html 的右侧结构一致）
+      // 主位放作者，补充说明放状态理由 —— 状态本身已经在标题行的胶囊里，不重复。
+      const detail = b.state_detail || '';
+      const sub = detail || b.license || b.source || '';
 
       return `
       <div class="order-card p-space-lg rounded-lg bg-surface-container-lowest/80 backdrop-blur-2xl border border-pink-100/80 shadow-[0_12px_32px_-8px_rgba(244,162,140,0.08)] hover:shadow-[0_18px_40px_-10px_rgba(244,162,140,0.16)] transition-all flex flex-col xl:flex-row xl:items-center justify-between gap-space-lg group"
@@ -198,8 +208,8 @@
         </div>
         <div class="flex items-center justify-between xl:justify-end gap-space-lg pt-space-sm xl:pt-0">
           <div class="flex flex-col text-left xl:text-right">
-            <span class="font-headline-sm text-headline-sm text-on-surface font-bold">${esc(b.author || '')}</span>
-            <span class="font-label-sm text-label-sm text-on-surface-variant">${esc(b.priority == null ? t('lib.unranked') : prioLabel(b.priority))}</span>
+            <span class="font-headline-sm text-headline-sm text-on-surface font-bold">${esc(b.author || t('lib.unranked'))}</span>
+            <span class="font-label-sm text-label-sm text-on-surface-variant">${esc(sub)}</span>
           </div>
           <div class="flex items-center gap-space-xs shrink-0 flex-wrap sm:flex-nowrap">
             <a class="px-space-md py-2 rounded-full bg-white/90 border border-pink-200/80 hover:bg-pink-50/50 text-on-surface font-label-md text-label-md transition-all flex items-center gap-1 shadow-sm"

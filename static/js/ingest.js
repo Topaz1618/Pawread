@@ -75,17 +75,20 @@
     submitBtn.disabled = n === 0;
   }
 
-  /** 状态 → 图标与配色。 */
+  /** 状态 → 图标与配色（order-card 左侧圆形图标）。 */
   const STATE_STYLE = {
-    noted:       { icon: 'task_alt', circle: 'bg-purple-100/70 border-purple-200/60', text: 'text-[#7a5980]' },
-    failed:      { icon: 'error',    circle: 'bg-surface-container-highest border-zinc-200', text: 'text-on-surface-variant' },
-    unavailable: { icon: 'block',    circle: 'bg-surface-container-highest border-zinc-200', text: 'text-on-surface-variant' },
-    pending:     { icon: 'schedule', circle: 'bg-pink-100/70 border-pink-200/60', text: 'text-[#9d5b74]' },
+    noted:       { icon: 'task_alt',      circle: 'bg-purple-100/70 border-purple-200/60', text: 'text-[#7a5980]' },
+    available:   { icon: 'auto_awesome',  circle: 'bg-pink-100/70 border-pink-200/60',   text: 'text-[#9d5b74]' },
+    failed:      { icon: 'restart_alt',   circle: 'bg-surface-container-highest border-zinc-200', text: 'text-on-surface-variant' },
+    unavailable: { icon: 'block',         circle: 'bg-surface-container-highest border-zinc-200', text: 'text-on-surface-variant' },
+    pending:     { icon: 'schedule',      circle: 'bg-pink-100/70 border-pink-200/60',   text: 'text-[#9d5b74]' },
   };
+  const ACTIVE_STATES = ['searching', 'downloading', 'verifying', 'noting'];
 
-  /** 状态 → 状态胶囊。 */
+  /** 状态 → 状态胶囊（order-card 标题行第三个 pill）。 */
   const STATE_PILL = {
     noted:       'bg-emerald-50 border-emerald-200/70 text-emerald-800 font-semibold',
+    available:   'bg-pink-50 border-pink-200/80 text-[#9d5b74] font-semibold',
     failed:      'bg-surface-container-high text-on-surface-variant font-medium',
     unavailable: 'bg-surface-container-high text-on-surface-variant font-medium',
     pending:     'bg-pink-50 border-pink-200/80 text-[#9d5b74] font-semibold',
@@ -93,10 +96,11 @@
 
   /** 状态 → 圆点颜色。 */
   const STATE_DOT = {
-    noted: 'bg-emerald-600',
-    failed: 'bg-outline',
+    noted:       'bg-emerald-600',
+    available:   'bg-[#9d5b74]',
+    failed:      'bg-outline',
     unavailable: 'bg-outline',
-    pending: 'bg-[#9d5b74]',
+    pending:     'bg-[#9d5b74]',
   };
 
   /** 画过滤条 —— 与 orders.html 的 statusFilterGroup 一致。 */
@@ -173,41 +177,57 @@
       const dot = STATE_DOT[j.state] || STATE_DOT.pending;
       const text = t('state.' + (j.state || 'pending')) || j.state;
       const detail = j.detail || j.error || '';
+      const isActive = ACTIVE_STATES.indexOf(j.state) >= 0;
 
-      // 标题行：书名 + 状态胶囊（与 orders.html 的 title pills 一致）
+      // 标题行：书名 + 第二个标签 pill + 状态胶囊（与 orders.html 的 title pills 一致）
+      // orders.html 第二个 pill 是「+330 Sparks」这种标签，和状态胶囊不是同一条信息；
+      // 这里用作者承担这个位置，状态只出现一次。
+      const tagPill = j.author
+        ? `<span class="px-space-xs py-0.5 rounded-full bg-pink-50 border border-pink-200/80 text-[#9d5b74] font-label-sm text-label-sm font-semibold">${esc(j.author)}</span>`
+        : '';
       const titlePills = `
               <span class="font-headline-sm text-headline-sm text-on-surface font-semibold">${esc(j.title)}</span>
-              <span class="px-space-xs py-0.5 rounded-full bg-pink-50 border border-pink-200/80 text-[#9d5b74] font-label-sm text-label-sm font-semibold">${esc(text)}</span>
+              ${tagPill}
               <span class="px-space-sm py-0.5 rounded-full ${pill} font-label-sm text-label-sm font-semibold flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full ${dot}"></span> ${esc(text)}</span>`;
 
-      // 元信息行：#id • 详情 • 来源（与 orders.html 的 meta 行一致）
+      // 元信息行：#id • 时间 • 加密来源（与 orders.html 的 meta 行一致）
       const meta = [];
       if (j.book_id) meta.push(`<span class="font-mono text-[#9d5b74] font-medium">#${esc(j.book_id)}</span>`);
-      if (detail) meta.push(`<span>${esc(detail)}</span>`);
-      if (j.source) {
-        meta.push(`<span class="flex items-center gap-0.5"><span class="material-symbols-outlined text-[14px]">lock</span> ${esc(j.source)}</span>`);
+      if (j.created_at) {
+        const d = new Date(j.created_at * 1000);
+        const date = d.toLocaleDateString('en-US', { month: 'short', day: '2-digit', year: 'numeric', timeZone: 'UTC' });
+        const time = d.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', timeZone: 'UTC' });
+        meta.push(`<span>${esc(date)} • ${esc(time)} UTC</span>`);
+      }
+      if (j.license || j.source) {
+        meta.push(`<span class="flex items-center gap-0.5"><span class="material-symbols-outlined text-[14px]">lock</span> ${esc(j.license || j.source)}</span>`);
       }
       const metaHtml = meta.length
         ? meta.map((m, i) => (i ? '<span>•</span>' : '') + m).join('')
         : '';
 
       // 右侧：文字块 + 两个按钮（与 orders.html 的右侧结构一致）
+      const amount = j.bytes
+        ? `${(j.bytes / 1048576).toFixed(1)} MB`
+        : (isActive ? `${j.progress || 0}%` : t('ingest.noFile'));
+      // 第二行是「金额的补充说明」，不能跟状态胶囊重复。
+      const sub = (detail && detail !== text)
+        ? detail
+        : (j.license || j.source || '');
       const right = `
           <div class="flex flex-col text-left xl:text-right">
-            <span class="font-headline-sm text-headline-sm text-on-surface font-bold">${esc(text)}</span>
-            <span class="font-label-sm text-label-sm text-on-surface-variant">${esc(detail || '')}</span>
+            <span class="font-headline-sm text-headline-sm text-on-surface font-bold">${esc(amount)}</span>
+            <span class="font-label-sm text-label-sm text-on-surface-variant">${esc(sub)}</span>
           </div>
           <div class="flex items-center gap-space-xs shrink-0 flex-wrap sm:flex-nowrap">
-            ${j.state === 'noted'
-              ? `<a class="px-space-md py-2 rounded-full bg-white/90 border border-pink-200/80 hover:bg-pink-50/50 text-on-surface font-label-md text-label-md transition-all flex items-center gap-1 shadow-sm" href="/read/${encodeURIComponent(j.book_id)}">
-                   <span class="material-symbols-outlined text-[16px] text-[#9d5b74]">download</span>
-                   <span class="hidden sm:inline">${esc(t('ingest.read'))}</span>
-                 </a>
-                 <a class="px-space-md py-2 rounded-full bg-[#000000] text-white hover:bg-[#1f2937] font-label-md text-label-md transition-all flex items-center gap-1 shadow-sm" href="/read/${encodeURIComponent(j.book_id)}">
-                   <span>${esc(t('ingest.read'))}</span>
-                   <span class="material-symbols-outlined text-[14px]">north_east</span>
-                 </a>`
-              : `<span class="px-space-sm py-0.5 rounded-full ${pill} font-label-sm text-label-sm font-medium flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full ${dot}"></span> ${esc(text)}</span>`}
+            <a class="px-space-md py-2 rounded-full bg-white/90 border border-pink-200/80 hover:bg-pink-50/50 text-on-surface font-label-md text-label-md transition-all flex items-center gap-1 shadow-sm" href="/read/${encodeURIComponent(j.book_id)}">
+              <span class="material-symbols-outlined text-[16px] text-[#9d5b74]">download</span>
+              <span class="hidden sm:inline">${esc(t('ingest.downloadNote'))}</span>
+            </a>
+            <a class="px-space-md py-2 rounded-full bg-[#000000] text-white hover:bg-[#1f2937] font-label-md text-label-md transition-all flex items-center gap-1 shadow-sm" href="/read/${encodeURIComponent(j.book_id)}">
+              <span>${esc(t('ingest.detail'))}</span>
+              <span class="material-symbols-outlined text-[14px]">north_east</span>
+            </a>
           </div>`;
 
       return `

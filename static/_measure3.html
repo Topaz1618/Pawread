@@ -1,0 +1,32 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><style>body{margin:0}iframe{width:1024px;height:700px;border:0}
+#out{position:fixed;left:0;top:0;background:#fff;color:#000;font:11px monospace;z-index:9;width:100%;white-space:pre-wrap;word-break:break-all}</style></head><body>
+<pre id="out">waiting</pre>
+<iframe id="f1" src="/static/_ref_faq.html"></iframe>
+<iframe id="f3" src="/"></iframe>
+<script>
+function probe(id,label){
+  const d=document.getElementById(id).contentDocument;
+  const w=d.defaultView;
+  const o=[];
+  o.push(label+' htmlFS='+w.getComputedStyle(d.documentElement).fontSize+' bodyFS='+w.getComputedStyle(d.body).fontSize);
+  const probe=d.createElement('div');
+  probe.className='max-w-4xl w-4xl';
+  probe.style.height='5px';
+  d.body.appendChild(probe);
+  o.push(label+' maxw4xl computed='+w.getComputedStyle(probe).maxWidth+' w='+probe.getBoundingClientRect().width);
+  probe.className='max-w-2xl w-2xl';
+  o.push(label+' maxw2xl computed='+w.getComputedStyle(probe).maxWidth+' w='+probe.getBoundingClientRect().width);
+  probe.className='text-display-lg';
+  probe.textContent='X';
+  o.push(label+' displaylg fs='+w.getComputedStyle(probe).fontSize);
+  probe.remove();
+  const sec=d.querySelector('section');
+  o.push(label+' sectionW='+Math.round(sec.getBoundingClientRect().width));
+  return o.join('\n');
+}
+function run(){
+  const out=[probe('f1','REF'),probe('f3','LIVE')];
+  document.getElementById('out').textContent=out.join('\n');
+}
+setTimeout(run,4000);
+</script></body></html>
