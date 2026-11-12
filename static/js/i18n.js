@@ -25,19 +25,18 @@
       'ingest.queue': '处理队列',
       'ingest.empty': '还没有任务',
       'ingest.emptyHint': '在上面粘贴书名开始',
-      'ingest.clearDone': '清除已完成',
       'ingest.count': '{n} 本',
       'ingest.submitted': '已提交 {n} 本',
       'ingest.maxBooks': '一次最多 100 本',
       'ingest.read': '阅读',
       'ingest.source': '来源',
+      'lib.badge': '我的收藏书架',
       'lib.title': '我的书单',
       'lib.desc': '按优先级筛选，点击任意一本进入阅读模式。',
       'lib.all': '全部书籍',
       'lib.priority': '优先级',
       'lib.status': '状态',
       'lib.search': '搜索书名或译名…',
-      'lib.onlyNoted': '只看有笔记的',
       'lib.colTitle': '书名',
       'lib.colZh': '中文译名',
       'lib.colPrio': '优先级',
@@ -46,6 +45,7 @@
       'lib.summary': '显示 {shown} / {total}　有笔记 {noted}',
       'lib.unranked': '未分级',
       'lib.hasNote': '有笔记',
+      'reader.shelf': '书单',
       'reader.allBooks': '全部书籍',
       'reader.noNote': '还没有笔记',
       'reader.loading': '载入中…',
@@ -76,10 +76,15 @@
       'ingest.f2d': '不压缩、不改原意，原文引用逐句保留。',
       'ingest.f3t': '分层阅读',
       'ingest.f3d': '每份笔记带目录与要点预览，随时跳读。',
-      'ingest.summary': '{total} 个 · 进行 {running} · 完成 {done} · 失败 {failed}',
       'lib.read': '阅读',
       'reader.progress': '阅读进度',
       'reader.reading': '阅读中',
+      'ingest.hint': '每行一个书名，一次最多 100 本',
+      'ingest.privacy': '中文、西语、德语书名会自动归一到英文原标题再检索',
+      'ingest.search': '搜索书名或编号…',
+      'ingest.guarantee': '阅读保障与协助',
+      'ingest.guaranteeDesc': '免费合规资源的检索与下载会全程留痕。找不到的书会在队列里标明原因，你也可以在书单页查看全部未完成的任务。',
+      'group.all': '全部',
     },
     en: {
       'nav.ingest': 'Ingest',
@@ -93,19 +98,18 @@
       'ingest.queue': 'Processing queue',
       'ingest.empty': 'No tasks yet',
       'ingest.emptyHint': 'Paste titles above to begin',
-      'ingest.clearDone': 'Clear finished',
       'ingest.count': '{n} books',
       'ingest.submitted': 'Submitted {n} books',
       'ingest.maxBooks': 'Up to 100 books at a time',
       'ingest.read': 'Read',
       'ingest.source': 'Source',
+      'lib.badge': 'My Reading Shelf',
       'lib.title': 'My Library',
       'lib.desc': 'Filter by priority, click any book to start reading.',
       'lib.all': 'All books',
       'lib.priority': 'Priority',
       'lib.status': 'Status',
       'lib.search': 'Search title or translation…',
-      'lib.onlyNoted': 'Only with notes',
       'lib.colTitle': 'Title',
       'lib.colZh': 'Translation',
       'lib.colPrio': 'Priority',
@@ -114,6 +118,7 @@
       'lib.summary': 'Showing {shown} / {total}　{noted} with notes',
       'lib.unranked': 'Unranked',
       'lib.hasNote': 'Noted',
+      'reader.shelf': 'Shelf',
       'reader.allBooks': 'All books',
       'reader.noNote': 'No notes yet',
       'reader.loading': 'Loading…',
@@ -144,10 +149,15 @@
       'ingest.f2d': 'Nothing compressed, nothing paraphrased — original quotes kept verbatim.',
       'ingest.f3t': 'Layered reading',
       'ingest.f3d': 'Every note carries a table of contents and a preview of each chapter.',
-      'ingest.summary': '{total} total · {running} running · {done} done · {failed} failed',
       'lib.read': 'Read',
       'reader.progress': 'Reading progress',
       'reader.reading': 'Reading',
+      'ingest.hint': 'One title per line, up to 100 at a time',
+      'ingest.privacy': 'Chinese, Spanish and German titles are normalised to their English original',
+      'ingest.search': 'Search title or ID…',
+      'ingest.guarantee': 'Reading Assurance & Assistance',
+      'ingest.guaranteeDesc': 'Every free-resource lookup and download is logged. Books that cannot be found are marked with a reason in the queue, and you can review all unfinished tasks on the library page.',
+      'group.all': 'All',
     },
     es: {
       'nav.ingest': 'Ingesta',
@@ -161,19 +171,18 @@
       'ingest.queue': 'Cola de proceso',
       'ingest.empty': 'Aún no hay tareas',
       'ingest.emptyHint': 'Pega títulos arriba para empezar',
-      'ingest.clearDone': 'Limpiar terminados',
       'ingest.count': '{n} libros',
       'ingest.submitted': '{n} libros enviados',
       'ingest.maxBooks': 'Hasta 100 libros a la vez',
       'ingest.read': 'Leer',
       'ingest.source': 'Fuente',
+      'lib.badge': 'Mi estantería',
       'lib.title': 'Mi biblioteca',
       'lib.desc': 'Filtra por prioridad, haz clic en un libro para leerlo.',
       'lib.all': 'Todos los libros',
       'lib.priority': 'Prioridad',
       'lib.status': 'Estado',
       'lib.search': 'Buscar título o traducción…',
-      'lib.onlyNoted': 'Solo con notas',
       'lib.colTitle': 'Título',
       'lib.colZh': 'Traducción',
       'lib.colPrio': 'Prioridad',
@@ -182,6 +191,7 @@
       'lib.summary': 'Mostrando {shown} / {total}　{noted} con notas',
       'lib.unranked': 'Sin prioridad',
       'lib.hasNote': 'Con notas',
+      'reader.shelf': 'Estantería',
       'reader.allBooks': 'Todos los libros',
       'reader.noNote': 'Aún no hay notas',
       'reader.loading': 'Cargando…',
@@ -212,10 +222,15 @@
       'ingest.f2d': 'Sin comprimir ni parafrasear — las citas originales se conservan textualmente.',
       'ingest.f3t': 'Lectura por capas',
       'ingest.f3d': 'Cada nota incluye un índice y un adelanto de cada capítulo.',
-      'ingest.summary': '{total} en total · {running} en curso · {done} listos · {failed} fallidos',
       'lib.read': 'Leer',
       'reader.progress': 'Progreso de lectura',
       'reader.reading': 'Leyendo',
+      'ingest.hint': 'Un título por línea, hasta 100 a la vez',
+      'ingest.privacy': 'Los títulos chinos, españoles y alemanes se normalizan al original en inglés',
+      'ingest.search': 'Buscar título o ID…',
+      'ingest.guarantee': 'Garantía de lectura y asistencia',
+      'ingest.guaranteeDesc': 'Cada búsqueda y descarga de recursos gratuitos queda registrada. Los libros no encontrados se marcan con un motivo en la cola, y puedes revisar todas las tareas pendientes en la biblioteca.',
+      'group.all': 'Todos',
     },
     de: {
       'nav.ingest': 'Eingabe',
@@ -229,19 +244,18 @@
       'ingest.queue': 'Verarbeitungswarteschlange',
       'ingest.empty': 'Noch keine Aufträge',
       'ingest.emptyHint': 'Titel oben einfügen, um zu beginnen',
-      'ingest.clearDone': 'Fertige entfernen',
       'ingest.count': '{n} Bücher',
       'ingest.submitted': '{n} Bücher übermittelt',
       'ingest.maxBooks': 'Bis zu 100 Bücher auf einmal',
       'ingest.read': 'Lesen',
       'ingest.source': 'Quelle',
+      'lib.badge': 'Mein Bücherregal',
       'lib.title': 'Meine Bibliothek',
       'lib.desc': 'Nach Priorität filtern, zum Lesen auf ein Buch klicken.',
       'lib.all': 'Alle Bücher',
       'lib.priority': 'Priorität',
       'lib.status': 'Status',
       'lib.search': 'Titel oder Übersetzung suchen…',
-      'lib.onlyNoted': 'Nur mit Notizen',
       'lib.colTitle': 'Titel',
       'lib.colZh': 'Übersetzung',
       'lib.colPrio': 'Priorität',
@@ -250,6 +264,7 @@
       'lib.summary': 'Zeige {shown} / {total}　{noted} mit Notizen',
       'lib.unranked': 'Ohne Rang',
       'lib.hasNote': 'Mit Notizen',
+      'reader.shelf': 'Regal',
       'reader.allBooks': 'Alle Bücher',
       'reader.noNote': 'Noch keine Notizen',
       'reader.loading': 'Wird geladen…',
@@ -280,10 +295,15 @@
       'ingest.f2d': 'Nichts gekürzt, nichts umgeschrieben — Originalzitate bleiben wörtlich erhalten.',
       'ingest.f3t': 'Gestaffelt lesen',
       'ingest.f3d': 'Jede Notiz enthält ein Inhaltsverzeichnis und eine Vorschau jedes Kapitels.',
-      'ingest.summary': '{total} gesamt · {running} laufend · {done} fertig · {failed} fehlgeschlagen',
       'lib.read': 'Lesen',
       'reader.progress': 'Lesefortschritt',
       'reader.reading': 'Lesend',
+      'ingest.hint': 'Ein Titel pro Zeile, bis zu 100 auf einmal',
+      'ingest.privacy': 'Chinesische, spanische und deutsche Titel werden ins englische Original normalisiert',
+      'ingest.search': 'Titel oder ID suchen…',
+      'ingest.guarantee': 'Lese-Sicherung & Unterstützung',
+      'ingest.guaranteeDesc': 'Jede Suche und jeder Download kostenloser Ressourcen wird protokolliert. Nicht gefundene Bücher werden in der Warteschlange mit einem Grund markiert, alle offenen Aufgaben siehst du in der Bibliothek.',
+      'group.all': 'Alle',
     },
   };
 
@@ -328,6 +348,24 @@
     });
   }
 
+  /** 语言按钮的选中态 —— 纯黑胶囊，跟导航一致。 */
+  const LANG_ON = 'bg-[#000000] text-white';
+  const LANG_OFF = 'text-on-surface-variant hover:text-on-surface';
+
+  /** 更新语言按钮的选中态。
+   *
+   * @param {string} lang 当前语言
+   */
+  function paintLangButtons(lang) {
+    document.querySelectorAll('#langSwitch button').forEach(b => {
+      const on = b.dataset.lang === lang;
+      b.classList.toggle('bg-[#000000]', on);
+      b.classList.toggle('text-white', on);
+      b.classList.toggle('font-semibold', on);
+      b.classList.toggle('text-on-surface-variant', !on);
+    });
+  }
+
   /** 切换语言。
    *
    * @param {string} lang 语言代码
@@ -339,9 +377,7 @@
     try { localStorage.setItem('pawread:lang', lang); } catch (e) { /* 忽略 */ }
     document.documentElement.lang = lang === 'cn' ? 'zh-CN' : lang;
     applyDom();
-    document.querySelectorAll('#langSwitch button').forEach(b => {
-      b.classList.toggle('on', b.dataset.lang === lang);
-    });
+    paintLangButtons(lang);
     if (reload !== false) {
       // 书名译名要重新向后端取，刷新最省事
       location.reload();
@@ -356,11 +392,11 @@
     document.documentElement.lang = current === 'cn' ? 'zh-CN' : current;
 
     document.querySelectorAll('#langSwitch button').forEach(b => {
-      b.classList.toggle('on', b.dataset.lang === current);
       b.addEventListener('click', () => {
         if (b.dataset.lang !== current) setLang(b.dataset.lang, true);
       });
     });
+    paintLangButtons(current);
 
     applyDom();
   }

@@ -1,99 +1,95 @@
 {% extends "base.html" %}
-{% block title %}Pawread · 读书笔记{% end %}
+{% block title %}Pawread{% end %}
 
 {% block body %}
-<main>
-  <div class="shell" style="position:relative">
-    <div class="glow glow-top"></div>
-    <div class="glow glow-rose" style="top:380px;left:-130px;width:380px;height:380px"></div>
-    <div class="glow glow-lav" style="top:800px;right:-140px;width:420px;height:420px"></div>
+<main class="w-full pt-20">
+  <div class="max-w-[1440px] mx-auto px-space-md lg:px-margin py-space-xl">
+    <div class="flex flex-col w-full gap-space-xl">
 
-    <!-- Hero：居中 -->
-    <section style="position:relative;padding:24px 0 48px;text-align:center;max-width:896px;margin:0 auto">
-      <div class="badge" style="margin-bottom:24px">
-        <span style="width:6px;height:6px;border-radius:9999px;background:#000;animation:ping 1.6s infinite"></span>
-        <span data-i18n="ingest.badge"></span>
-      </div>
-      <h1 class="t-display" style="margin-bottom:16px" data-i18n="ingest.title"></h1>
-      <p class="t-body-xl t-muted" style="max-width:672px;margin:0 auto;line-height:1.7"
-         data-i18n="ingest.desc"></p>
+      <!-- Hero：与 templates/faq.html 一致 -->
+      <section class="relative flex flex-col items-center text-center max-w-4xl mx-auto">
+        <div class="pointer-events-none absolute -top-10 left-1/4 w-96 h-96 bg-pink-200/40 rounded-full blur-3xl -z-10"></div>
+        <div class="pointer-events-none absolute top-2 right-1/4 w-80 h-80 bg-purple-200/30 rounded-full blur-3xl -z-10"></div>
+        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#fce7f3]/80 backdrop-blur-md shadow-sm mb-6">
+          <span class="w-1.5 h-1.5 rounded-full bg-[#000000] animate-ping"></span>
+          <span class="font-label-sm text-label-sm uppercase tracking-widest text-[#000000] font-semibold" data-i18n="ingest.badge"></span>
+        </div>
+        <h1 class="font-headline-xl text-headline-xl text-[#000000] tracking-tight mb-4" style="font-family: 'Syne', sans-serif;" data-i18n="ingest.title"></h1>
+        <p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl leading-relaxed" data-i18n="ingest.desc"></p>
 
-      <!-- 搜索胶囊 -->
-      <div style="width:100%;max-width:672px;margin:32px auto 0">
-        <div class="search-pill">
-          <div class="search-pill-icon">
-            <span class="material-symbols-outlined" style="font-size:20px;color:#000">library_add</span>
+        <!-- 输入框：report.html 的 Elevated Text & Voice Input Field -->
+        <div class="w-full max-w-2xl mt-8 relative">
+          <div class="relative w-full rounded-2xl bg-neutral-50/70 border border-pink-100 p-3 focus-within:ring-2 focus-within:ring-pink-300 focus-within:bg-white transition-all">
+            <textarea class="w-full bg-transparent resize-none border-none outline-none font-body-lg text-body-lg text-neutral-800 placeholder:text-neutral-400 p-1"
+                      id="titleInput" rows="3" data-i18n-ph="ingest.ph"></textarea>
+            <!-- 底部工具条 -->
+            <div class="flex items-center justify-between pt-2 border-t border-neutral-200/40 mt-1">
+              <div class="flex items-center gap-2">
+                <span class="font-label-sm text-label-sm text-neutral-500 hidden sm:inline" data-i18n="ingest.hint"></span>
+              </div>
+              <button class="bg-[#000000] text-white hover:bg-[#1f2937] rounded-full px-6 py-2.5 transition-all shadow-[0_8px_20px_-6px_rgba(0,0,0,0.25)] flex items-center gap-2 group"
+                      id="submitBtn" type="button">
+                <span class="font-label-md text-label-md font-semibold tracking-wide" data-i18n="ingest.submit"></span>
+                <span class="material-symbols-outlined text-[18px] group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition-transform">north_east</span>
+              </button>
+            </div>
           </div>
-          <textarea id="titleInput" rows="2"
-            style="flex:1;min-width:0;background:transparent;border:none;outline:none;resize:none;padding:12px 16px;font-family:var(--font-body);font-size:16px;line-height:24px;color:#000"
-            data-i18n-ph="ingest.ph"></textarea>
-        </div>
-        <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:12px;margin-top:20px">
-          <select id="langSelect" style="width:auto;min-width:140px;border-radius:9999px;padding:10px 20px;font-family:var(--font-label);font-weight:600">
-            <option value="auto">自动识别 Auto</option>
-            <option value="cn">简体中文</option>
-            <option value="en">English</option>
-            <option value="es">Español</option>
-            <option value="de">Deutsch</option>
-            <option value="fr">Français</option>
-            <option value="ja">日本語</option>
-          </select>
-          <button class="btn btn-primary" id="submitBtn" style="padding:12px 28px">
-            <span class="material-symbols-outlined" style="font-size:18px">play_arrow</span>
-            <span data-i18n="ingest.submit"></span>
-          </button>
-          <span class="t-label-sm t-faint" id="countHint">0</span>
-        </div>
-      </div>
-    </section>
-
-    <!-- 三个特性卡 -->
-    <section style="max-width:1024px;margin:0 auto 48px;display:grid;grid-template-columns:repeat(3,1fr);gap:16px">
-      <div class="card card-pad" style="display:flex;align-items:flex-start;gap:16px">
-        <div class="list-icon icon-rose" style="width:40px;height:40px">
-          <span class="material-symbols-outlined" style="font-size:20px">translate</span>
-        </div>
-        <div>
-          <h4 class="t-headline" style="margin-bottom:4px" data-i18n="ingest.f1t"></h4>
-          <p class="t-body t-muted" data-i18n="ingest.f1d"></p>
-        </div>
-      </div>
-      <div class="card card-pad" style="display:flex;align-items:flex-start;gap:16px">
-        <div class="list-icon icon-lav" style="width:40px;height:40px">
-          <span class="material-symbols-outlined" style="font-size:20px">auto_awesome</span>
-        </div>
-        <div>
-          <h4 class="t-headline" style="margin-bottom:4px" data-i18n="ingest.f2t"></h4>
-          <p class="t-body t-muted" data-i18n="ingest.f2d"></p>
-        </div>
-      </div>
-      <div class="card card-pad" style="display:flex;align-items:flex-start;gap:16px">
-        <div class="list-icon icon-rose" style="width:40px;height:40px">
-          <span class="material-symbols-outlined" style="font-size:20px">menu_book</span>
-        </div>
-        <div>
-          <h4 class="t-headline" style="margin-bottom:4px" data-i18n="ingest.f3t"></h4>
-          <p class="t-body t-muted" data-i18n="ingest.f3d"></p>
-        </div>
-      </div>
-    </section>
-
-    <!-- 队列 -->
-    <section style="max-width:1024px;margin:0 auto">
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;padding:0 4px">
-        <div style="display:flex;align-items:center;gap:12px">
-          <div class="list-icon icon-lav" style="width:40px;height:40px">
-            <span class="material-symbols-outlined" style="font-size:20px">pending_actions</span>
+          <div class="flex items-center justify-between text-neutral-400 font-label-sm text-label-sm px-1 mt-2">
+            <span data-i18n="ingest.privacy"></span>
+            <span id="countHint">0</span>
           </div>
-          <span class="t-headline-lg" data-i18n="ingest.queue"></span>
         </div>
-        <div style="display:flex;align-items:center;gap:10px">
-          <span class="pill pill-rose" id="queueSummary">0</span>
-          <button class="btn btn-ghost btn-sm" id="clearDoneBtn" data-i18n="ingest.clearDone"></button>
+      </section>
+
+      <!-- Filter & Search Toolbar：与 templates/orders.html 完全一致 -->
+      <div class="flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-space-md p-space-sm rounded-lg bg-surface-container-lowest/60 backdrop-blur-xl shadow-[0_4px_16px_rgba(0,0,0,0.02)]">
+        <!-- Filter Pills Tabs -->
+        <div class="flex items-center gap-space-xs overflow-x-auto pb-1 lg:pb-0 scrollbar-none" id="queueFilters"></div>
+        <!-- Search Input -->
+        <div class="relative min-w-[280px]">
+          <span class="material-symbols-outlined text-outline absolute left-space-md top-1/2 -translate-y-1/2 text-[18px]">search</span>
+          <input class="w-full pl-10 pr-space-md py-2 rounded-full bg-surface-container-low/80 border border-pink-100/60 font-body-md text-body-md text-on-surface placeholder:text-outline focus:outline-none focus:bg-white focus:border-pink-300 transition-all"
+                 id="queueSearch" type="text" data-i18n-ph="ingest.search"/>
         </div>
       </div>
-      <div id="queueList" style="display:flex;flex-direction:column;gap:12px"></div>
-    </section>
+
+      <!-- Orders Container (Rich Frosted Rows)：与 templates/orders.html 完全一致 -->
+      <div class="flex flex-col gap-space-md" id="queueList"></div>
+
+      <!-- Pagination Strip：与 templates/orders.html 完全一致 -->
+      <div class="flex flex-col sm:flex-row items-center justify-between gap-space-md py-space-sm px-space-md rounded-full bg-surface-container-lowest/60 backdrop-blur-md">
+        <span class="font-label-md text-label-md text-on-surface-variant" id="paginationCountText">Showing <strong>0</strong> of <strong>0</strong> tasks</span>
+        <div class="flex items-center gap-space-xs">
+          <button class="w-8 h-8 rounded-full bg-surface-container-low flex items-center justify-center text-outline cursor-not-allowed" disabled=""><span class="material-symbols-outlined text-[18px]">chevron_left</span></button>
+          <button class="w-8 h-8 rounded-full bg-[#000000] text-white font-label-sm text-label-sm font-semibold flex items-center justify-center shadow-sm">1</button>
+          <button class="w-8 h-8 rounded-full bg-surface-container-low flex items-center justify-center text-outline cursor-not-allowed" disabled=""><span class="material-symbols-outlined text-[18px]">chevron_right</span></button>
+        </div>
+      </div>
+
+      <!-- Sanctuary Guarantee & Support Banner：与 templates/orders.html 完全一致 -->
+      <div class="relative overflow-hidden rounded-lg p-space-xl bg-gradient-to-r from-surface-container-lowest/90 via-surface-container-low/80 to-surface-container-lowest/90 backdrop-blur-2xl shadow-[0_20px_48px_-16px_rgba(244,162,140,0.18)]">
+        <!-- Subtle Inner Shimmer Arc -->
+        <div class="absolute -right-16 -bottom-16 w-64 h-64 bg-pink-200/40 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-space-lg relative z-10">
+          <div class="flex items-start gap-space-md max-w-3xl">
+            <div class="w-11 h-11 rounded-full bg-pink-100/80 border border-pink-200/60 flex items-center justify-center shrink-0 text-[#9d5b74]">
+              <span class="material-symbols-outlined text-[24px]">support_agent</span>
+            </div>
+            <div class="flex flex-col gap-space-xs">
+              <span class="font-headline-sm text-headline-sm text-on-surface font-semibold" data-i18n="ingest.guarantee"></span>
+              <p class="font-body-md text-body-md text-on-surface-variant leading-relaxed" data-i18n="ingest.guaranteeDesc"></p>
+            </div>
+          </div>
+          <div class="shrink-0 w-full sm:w-auto">
+            <a class="inline-flex w-full sm:w-auto justify-center items-center gap-space-xs px-space-lg py-3 rounded-full bg-[#000000] text-white hover:bg-[#1f2937] font-label-lg text-label-lg transition-transform active:scale-95 shadow-[0_8px_20px_-6px_rgba(0,0,0,0.25)]" href="/library">
+              <span class="material-symbols-outlined text-[18px]">menu_book</span>
+              <span data-i18n="nav.library"></span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </div>
   </div>
 </main>
 {% end %}

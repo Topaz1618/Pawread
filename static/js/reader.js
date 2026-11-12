@@ -1,4 +1,8 @@
-/* 阅读页：侧边栏书单 + Markdown 渲染 + 阅读位置 */
+/* 阅读页：侧边栏书单 + Markdown 渲染 + 阅读位置
+ *
+ * 样式全部来自模板的 utility 类名，
+ * 这里只负责生成 DOM 与数据绑定。
+ */
 
 (function () {
   'use strict';
@@ -8,7 +12,7 @@
 
   const BOOK_ID = window.PAWREAD_BOOK_ID || '';
   const mdRoot = document.getElementById('mdRoot');
-  const readerMain = document.getElementById('readerMain');
+  const readerMain = document.getElementById('readerMain') || window;
   const sideList = document.getElementById('sideList');
   const readProgress = document.getElementById('readProgress');
 
@@ -57,24 +61,27 @@
 
   /* ---------------------------------------------------------- 侧边栏 */
 
-  /** 渲染侧边栏书单。 */
+  /** 渲染侧边栏书单 —— 结构照搬 chat2.html 的 nav 列表项。 */
   function renderSide() {
     const noted = books.filter(b => b.has_note);
     if (!noted.length) {
-      sideList.innerHTML = `<div class="t-label t-muted" style="padding:8px">${esc(t('reader.noNote'))}</div>`;
+      sideList.innerHTML = `<div class="font-body-md text-body-md text-on-surface-variant px-space-sm py-space-sm">${esc(t('reader.noNote'))}</div>`;
       return;
     }
     sideList.innerHTML = noted.map(b => {
       // 原书名做主标题，当前语言的译名做副标题
       const title = b.original_title || b.title?.text || b.display_title || '';
       const zh = b.display_title && b.display_title !== title
-        ? `<div class="side-book-sub">${esc(b.display_title)}</div>` : '';
-      return `<a class="side-book${b.id === BOOK_ID ? ' active' : ''}"
-                 href="/read/${encodeURIComponent(b.id)}" style="text-decoration:none">
-        <span class="material-symbols-outlined t-muted" style="font-size:18px;flex:none">
-          ${b.has_note ? 'menu_book' : 'hourglass_empty'}</span>
-        <span style="min-width:0;flex:1">
-          <span class="side-book-title">${esc(title)}</span>
+        ? `<span class="block font-label-sm text-label-sm text-on-surface-variant opacity-70 mt-0.5 truncate">${esc(b.display_title)}</span>`
+        : '';
+      const active = b.id === BOOK_ID
+        ? 'bg-surface-container text-on-surface font-bold'
+        : 'text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface';
+      return `<a class="flex items-center gap-space-sm px-space-sm py-space-sm rounded-DEFAULT transition-all ${active} font-body-md text-body-md"
+                 href="/read/${encodeURIComponent(b.id)}">
+        <span class="material-symbols-outlined text-[20px] shrink-0">menu_book</span>
+        <span class="min-w-0 flex-1">
+          <span class="block truncate">${esc(title)}</span>
           ${zh}
         </span>
       </a>`;
@@ -103,7 +110,7 @@
       localStorage.setItem('pawread:progress:' + BOOK_ID, String(p));
     } catch (e) { /* 隐私模式下写不了，忽略 */ }
     const pct = Math.round(p * 100);
-    readProgress.textContent = pct + '%';
+    if (readProgress) readProgress.textContent = pct + '%';
     // 后端也存一份，换设备能用
     api(`/api/notes/${encodeURIComponent(BOOK_ID)}/progress`, {
       method: 'POST', body: { progress: p },
@@ -111,7 +118,7 @@
   }
 
   let saveTimer = null;
-  readerMain.addEventListener('scroll', () => {
+  window.addEventListener('scroll', () => {
     if (saveTimer) clearTimeout(saveTimer);
     saveTimer = setTimeout(saveProgress, 800);
   });
@@ -120,8 +127,8 @@
   function restoreProgress() {
     const p = getProgress();
     if (p > 0.01) {
-      readerMain.scrollTop = (readerMain.scrollHeight - readerMain.clientHeight) * p;
-      readProgress.textContent = Math.round(p * 100) + '%';
+      window.scrollTo(0, (document.body.scrollHeight - window.innerHeight) * p);
+      if (readProgress) readProgress.textContent = Math.round(p * 100) + '%';
     }
   }
 
@@ -131,16 +138,16 @@
     if (ev.target.matches('input, textarea, select')) return;
     if (ev.key === 'Escape') { location.href = '/library'; }
     if (ev.key === 'j' || ev.key === 'ArrowDown') {
-      readerMain.scrollBy({ top: 120, behavior: 'smooth' });
+      window.scrollBy({ top: 120, behavior: 'smooth' });
     }
     if (ev.key === 'k' || ev.key === 'ArrowUp') {
-      readerMain.scrollBy({ top: -120, behavior: 'smooth' });
+      window.scrollBy({ top: -120, behavior: 'smooth' });
     }
   });
 
   /* ---------------------------------------------------------- 初始化 */
 
-  api('/api/books')
+  api(`/api/books?lang=${encodeURIComponent(T.getLang())}`)
     .then(data => { books = data.books || []; renderSide(); })
     .catch(() => { /* 侧边栏失败不阻塞正文 */ });
 
@@ -150,22 +157,23 @@
       addHeadingIds(mdRoot);
       // 图片加懒加载，表格加横向滚动
       mdRoot.querySelectorAll('img').forEach(img => { img.loading = 'lazy'; });
-      mdRoot.querySelectorAll('table').forEach(t => {
+      mdRoot.querySelectorAll('table').forEach(tb => {
         const wrap = document.createElement('div');
         wrap.style.overflowX = 'auto';
-        t.parentNode.insertBefore(wrap, t);
-        wrap.appendChild(t);
+        tb.parentNode.insertBefore(wrap, tb);
+        wrap.appendChild(tb);
       });
       restoreProgress();
     })
     .catch(e => {
       mdRoot.innerHTML = `
-        <div class="empty">
-          <div class="empty-mark">
-            <span class="material-symbols-outlined" style="font-size:28px">error</span>
+        <div class="text-center py-space-xl">
+          <div class="w-12 h-12 mx-auto rounded-full bg-pink-50 border border-pink-200/60 flex items-center justify-center mb-space-md">
+            <span class="material-symbols-outlined text-[#9d5b74] text-[24px]">error</span>
           </div>
-          <div class="t-body">${esc(e.message)}</div>
-          <a class="btn btn-ghost" style="margin-top:16px" href="/library">回到书单</a>
+          <div class="font-body-md text-body-md text-on-surface-variant">${esc(e.message)}</div>
+          <a class="inline-block mt-space-md px-space-md py-2 rounded-full bg-[#000000] text-white font-label-md text-label-md"
+             href="/library">${esc(t('reader.back'))}</a>
         </div>`;
     });
 })();

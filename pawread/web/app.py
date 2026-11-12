@@ -75,9 +75,21 @@ def run(port: int, address: str) -> None:
     import asyncio
 
     migrate_manifest()
+
+    # 事件循环必须先建好，再 listen ——
+    # app.listen() 会把 socket 绑到当前事件循环上。
+    # 顺序反了的话 socket 在监听，但跑的是另一个循环，请求永远不响应。
+    loop = asyncio.new_event_loop()
+    asyncio.set_event_loop(loop)
+
     QUEUE.start()
     app = make_app()
     app.listen(port, address=address)
-    print(f"Pawread 已启动： http://{address}:{port}")
-    loop = asyncio.get_event_loop()
-    loop.run_forever()
+    print(f"Pawread 已启动： http://{address}:{port}", flush=True)
+
+    try:
+        loop.run_forever()
+    except KeyboardInterrupt:
+        pass
+    finally:
+        loop.close()

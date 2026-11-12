@@ -47,62 +47,13 @@ function toast(msg, isErr) {
   const host = document.getElementById('toastHost');
   if (!host) return;
   const el = document.createElement('div');
-  el.className = 'toast' + (isErr ? ' err' : '');
+  el.className = `px-space-md py-space-sm rounded-lg font-label-md text-label-md shadow-lg ${
+    isErr
+      ? 'bg-red-50 text-red-700 border border-red-200/70'
+      : 'bg-[#000000] text-white'}`;
   el.textContent = msg;
   host.appendChild(el);
   setTimeout(() => el.remove(), 4000);
-}
-
-/* ---------------------------------------------------------------- 进度环 */
-
-/** 状态 → 圆环样式。
- *
- * 环用 SVG 的 stroke-dasharray 做进度条，
- * 转圈用 CSS 动画（.ring.spin）。
- *
- * 状态文字不在这里 —— 它在 `i18n.js` 的文案表里，
- * 按 `state.<name>` 取。
- */
-const RING = {
-  pending:    { color: 'var(--outline-variant)', spin: false, cls: '' },
-  searching:  { color: 'var(--primary)',         spin: true,  cls: '' },
-  downloading:{ color: 'var(--primary)',         spin: true,  cls: '' },
-  verifying:  { color: 'var(--violet)',          spin: true,  cls: '' },
-  noting:     { color: 'var(--primary-soft)',    spin: true,  cls: '' },
-  available:  { color: 'var(--ok)',              spin: false, cls: 'ok' },
-  noted:      { color: 'var(--ok)',              spin: false, cls: 'ok' },
-  unavailable:{ color: 'var(--err)',             spin: false, cls: 'err' },
-  failed:     { color: 'var(--err)',             spin: false, cls: 'err' },
-};
-
-/** 画一个进度环。
- *
- * @param {string} state 状态
- * @param {number} progress 百分比 0-100
- * @param {number} [size] 直径，默认 40
- * @returns {string} SVG 字符串
- */
-function ringSvg(state, progress, size = 40) {
-  const cfg = RING[state] || RING.pending;
-  const r = (size - 6) / 2;
-  const c = 2 * Math.PI * r;
-  const pct = Math.max(0, Math.min(100, progress || 0));
-  const dash = (pct / 100) * c;
-  const spinCls = cfg.spin ? ' spin' : '';
-  const icon = cfg.spin
-    ? ''
-    : `<text x="50%" y="50%" text-anchor="middle" dy="0.35em"
-             style="font-size:${size * 0.42}px;fill:${cfg.color}">${
-             state === 'noted' || state === 'available' ? '✓' : '✕'}</text>`;
-  return `<svg class="ring${cfg.cls}${spinCls}" width="${size}" height="${size}"
-     viewBox="0 0 ${size} ${size}" style="transform-origin:50% 50%">
-    <circle class="track" cx="${size / 2}" cy="${size / 2}" r="${r}"
-            stroke-width="3"/>
-    <circle class="bar" cx="${size / 2}" cy="${size / 2}" r="${r}"
-            stroke-width="3" stroke="${cfg.color}"
-            stroke-dasharray="${dash} ${c}"/>
-    ${icon}
-  </svg>`;
 }
 
 /* ---------------------------------------------------------------- 队列订阅 */

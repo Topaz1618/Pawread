@@ -112,7 +112,14 @@ def start(port: int, host: str) -> None:
         return
 
     LOG_DIR.mkdir(parents=True, exist_ok=True)
+    # 文本模式 —— 二进制模式会让 sys.stdout 变成二进制流，
+    # 应用里的 print(str) 会抛 TypeError，服务在启动横幅那行就死掉。
     log = open(LOG_FILE, "ab", buffering=0)
+    text_log = open(LOG_FILE, "a", encoding="utf-8", buffering=1)
+
+    # 清掉陈旧的 PID 文件 —— 否则下面会误读上一轮的 PID 当成启动成功
+    if PID_FILE.exists():
+        PID_FILE.unlink()
 
     # 第一次 fork —— 父进程退出，子进程继续
     if os.fork() > 0:
@@ -137,8 +144,9 @@ def start(port: int, host: str) -> None:
     os.umask(0o022)
     PID_FILE.write_text(str(os.getpid()), encoding="utf-8")
 
-    sys.stdout = log
-    sys.stderr = log
+    # stdout/stderr 用文本模式 —— 应用里全是 print(str)
+    sys.stdout = text_log
+    sys.stderr = text_log
     sys.stdin = open(os.devnull)
 
     sys.path.insert(0, str(ROOT))
@@ -147,8 +155,8 @@ def start(port: int, host: str) -> None:
         run(port=port, address=host)
     except BaseException:
         import traceback
-        traceback.print_exc()
-        log.flush()
+        traceback.print_exc(file=text_log)
+        text_log.flush()
         os._exit(1)
 
 

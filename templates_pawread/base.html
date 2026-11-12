@@ -1,47 +1,87 @@
 <!DOCTYPE html>
-<html lang="cn">
+<html lang="zh-CN">
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>{% block title %}Pawread{% end %}</title>
-<link rel="preconnect" href="https://fonts.googleapis.com"/>
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Syne:wght@500;600;700&display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap" rel="stylesheet"/>
-<link rel="stylesheet" href="/static/css/pawread.css"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link href="https://fonts.gstatic.com" rel="preconnect" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Syne:wght@500;600;700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="/static/js/tailwind-config.js"></script>
+<style>
+@layer base {
+  html, body { margin: 0; padding: 0; }
+  body { overscroll-behavior: none; }
+  main > :first-child { margin-top: 0 !important; }
+  main > :last-child { margin-bottom: 0 !important; }
+}
+::-webkit-scrollbar { display: none; }
+.pawrune-sanctuary-bg {
+  background: radial-gradient(130% 90% at 50% -10%, #fce7f3 0%, #f3e8ff 40%, #faf5ff 75%, #ffffff 100%) fixed;
+}
+
+/* Markdown 渲染样式 */
+.md h1 { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 32px; line-height: 40px; font-weight: 700; letter-spacing: -0.02em; margin: 0 0 1rem; }
+.md h2 { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 24px; line-height: 32px; font-weight: 600; letter-spacing: -0.015em; margin: 2.25rem 0 1rem; padding-bottom: 0.25rem; border-bottom: 1px solid #fce7f3; }
+.md h3 { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 18px; line-height: 26px; font-weight: 600; margin: 1.5rem 0 0.5rem; }
+.md h4 { font-size: 15px; line-height: 22px; font-weight: 700; margin: 1rem 0 0.5rem; }
+.md p { margin: 0 0 1rem; line-height: 1.75; }
+.md ul, .md ol { margin: 0 0 1rem; padding-left: 1.5rem; line-height: 1.75; }
+.md li { margin-bottom: 4px; }
+.md blockquote {
+  margin: 0 0 1rem; padding: 1rem 1.5rem;
+  border-left: 3px solid #fbcfe8; background: #fdf2f8;
+  border-radius: 0 1rem 1rem 0; color: #444652;
+}
+.md blockquote p:last-child { margin-bottom: 0; }
+.md code { font-family: ui-monospace, Menlo, monospace; font-size: 12px; background: #faf5ff; padding: 2px 5px; border-radius: 5px; }
+.md pre { background: #2a313d; color: #e6e6e6; padding: 1rem; border-radius: 1rem; overflow-x: auto; margin: 0 0 1rem; }
+.md pre code { background: none; padding: 0; color: inherit; }
+.md table { width: 100%; border-collapse: collapse; margin: 0 0 1rem; font-size: 13px; border: 1px solid #fce7f3; border-radius: 1rem; overflow: hidden; }
+.md th { background: #fdf2f8; font-family: 'Manrope', sans-serif; font-size: 12px; font-weight: 600; text-align: left; padding: 0.5rem 1rem; border-bottom: 1px solid #fce7f3; }
+.md td { padding: 0.5rem 1rem; border-bottom: 1px solid rgba(252,231,243,0.8); vertical-align: top; }
+.md tr:last-child td { border-bottom: none; }
+.md hr { border: none; border-top: 1px solid #fce7f3; margin: 1.5rem 0; }
+.md strong { font-weight: 700; }
+.md a { color: #db2777; }
+</style>
 </head>
-<body>
+<body class="pawrune-sanctuary-bg min-h-screen font-body-md text-body-md text-on-surface antialiased selection:bg-[#fce7f3] selection:text-[#000000]">
 
 {% block topbar %}
-<!-- 顶栏：faq.html 的整条磨砂样式 -->
-<header class="topbar">
-  <div class="topbar-inner">
-    <a class="brand" href="/">
-      <div class="brand-mark">
-        <span><span class="material-symbols-outlined" style="font-size:20px;color:#000">auto_stories</span></span>
+<!-- 顶栏：与 templates/report.html 一致 -->
+<header class="fixed top-0 w-full z-50 bg-white/70 backdrop-blur-xl shadow-[0_1px_16px_rgba(167,139,250,0.06)]">
+  <div class="h-20 w-full px-6 lg:px-margin flex items-center justify-between gap-4">
+    <div class="flex items-center gap-3 shrink-0">
+      <div class="w-10 h-10 rounded-full bg-white flex items-center justify-center shadow-[0_4px_16px_rgba(244,114,182,0.2)]">
+        <span class="material-symbols-outlined text-[#8b5cf6] text-[22px]">pets</span>
       </div>
-      <div>
-        <div class="brand-name">Pawread</div>
-        <div class="brand-sub">Reading Notes</div>
+      <div class="flex flex-col">
+        <span class="font-headline-sm text-headline-sm tracking-tight text-on-surface font-semibold">Pawread</span>
+        <span class="font-label-sm text-label-sm text-on-surface-variant tracking-wider uppercase">Reading Notes</span>
       </div>
-    </a>
+    </div>
 
-    <nav class="nav">
+    <nav class="hidden xl:flex items-center gap-1.5 bg-white/60 p-1.5 rounded-full backdrop-blur-md shadow-[0_2px_8px_rgba(167,139,250,0.04)] ml-auto">
       {% for item in nav %}
-      <a href="{{ item['href'] }}" class="{% if item['key'] == page %}active{% end %}"
-         data-i18n="{{ item['i18n'] }}"></a>
+      <a class="font-label-md text-label-md text-on-surface-variant hover:text-on-surface px-3 py-1.5 transition-colors {% if item['key'] == page %}bg-[#000000] text-white rounded-full font-semibold px-3.5 py-1.5 shadow-sm{% end %}"
+         href="{{ item['href'] }}" data-i18n="{{ item['i18n'] }}"></a>
       {% end %}
     </nav>
 
-    <div style="display:flex;align-items:center;gap:12px">
-      <div class="lang-switch" id="langSwitch">
-        <button data-lang="cn" class="on">中</button>
-        <button data-lang="en">EN</button>
-        <button data-lang="es">ES</button>
-        <button data-lang="de">DE</button>
+    <div class="flex items-center gap-3 shrink-0">
+      <!-- 语言切换 -->
+      <div class="flex items-center gap-1 px-3 py-1.5 rounded-full bg-white/80 backdrop-blur-md shadow-[0_2px_12px_rgba(244,114,182,0.15)]" id="langSwitch">
+        <button class="px-2 py-0.5 rounded-full font-label-sm text-label-sm text-on-surface-variant hover:text-on-surface transition-colors" data-lang="cn" type="button">中</button>
+        <button class="px-2 py-0.5 rounded-full font-label-sm text-label-sm text-on-surface-variant hover:text-on-surface transition-colors" data-lang="en" type="button">EN</button>
+        <button class="px-2 py-0.5 rounded-full font-label-sm text-label-sm text-on-surface-variant hover:text-on-surface transition-colors" data-lang="es" type="button">ES</button>
+        <button class="px-2 py-0.5 rounded-full font-label-sm text-label-sm text-on-surface-variant hover:text-on-surface transition-colors" data-lang="de" type="button">DE</button>
       </div>
-      <div class="avatar">
-        <span><span class="material-symbols-outlined" style="font-size:18px;color:#fff">person</span></span>
+      <div class="w-8 h-8 rounded-full bg-[#000000] flex items-center justify-center shadow-sm">
+        <span class="material-symbols-outlined text-white text-[18px]">person</span>
       </div>
     </div>
   </div>
@@ -50,7 +90,7 @@
 
 {% block body %}{% end %}
 
-<div class="toast-host" id="toastHost"></div>
+<div class="fixed bottom-6 right-6 z-[100] flex flex-col gap-2" id="toastHost"></div>
 
 <script src="/static/js/common.js"></script>
 <script src="/static/js/i18n.js"></script>

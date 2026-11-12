@@ -107,7 +107,12 @@ class ReaderHandler(PageHandler):
                         book=None, book_id=book_id)
             return
         note = read_note(book_id) or ""
-        self.render(self.get_template_name(), **self.shell_data(),
+        data = self.shell_data()
+        # 阅读页顶栏的「阅读」项指向当前这本书
+        for item in data["nav"]:
+            if item["key"] == "reader":
+                item["href"] = f"/read/{book_id}"
+        self.render(self.get_template_name(), **data,
                     book=book, book_id=book_id, note=note)
 
 
