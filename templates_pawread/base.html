@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="cn">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>{% block title %}Pawread{% end %}</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Syne:wght@500;600;700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="/static/css/pawread.css"/>
+</head>
+<body>
+
+{% block topbar %}
+<!-- 顶栏：faq.html 的整条磨砂样式 -->
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="/">
+      <div class="brand-mark">
+        <span><span class="material-symbols-outlined" style="font-size:20px;color:#000">auto_stories</span></span>
+      </div>
+      <div>
+        <div class="brand-name">Pawread</div>
+        <div class="brand-sub">Reading Notes</div>
+      </div>
+    </a>
+
+    <nav class="nav">
+      {% for item in nav %}
+      <a href="{{ item['href'] }}" class="{% if item['key'] == page %}active{% end %}"
+         data-i18n="{{ item['i18n'] }}"></a>
+      {% end %}
+    </nav>
+
+    <div style="display:flex;align-items:center;gap:12px">
+      <div class="lang-switch" id="langSwitch">
+        <button data-lang="cn" class="on">中</button>
+        <button data-lang="en">EN</button>
+        <button data-lang="es">ES</button>
+        <button data-lang="de">DE</button>
+      </div>
+      <div class="avatar">
+        <span><span class="material-symbols-outlined" style="font-size:18px;color:#fff">person</span></span>
+      </div>
+    </div>
+  </div>
+</header>
+{% end %}
+
+{% block body %}{% end %}
+
+<div class="toast-host" id="toastHost"></div>
+
+<script src="/static/js/common.js"></script>
+<script src="/static/js/i18n.js"></script>
+{% block scripts %}{% end %}
+</body>
+</html>

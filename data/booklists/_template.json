@@ -1,0 +1,64 @@
+{
+  "version": 1,
+  "languages": {
+    "cn": { "name": "简体中文", "script": "han", "std_code": "zh-CN" },
+    "zh-TW": { "name": "繁體中文", "script": "han", "std_code": "zh-TW" },
+    "en": { "name": "English", "script": "latin" },
+    "de": { "name": "Deutsch", "script": "latin" },
+    "ja": { "name": "日本語", "script": "han" }
+  },
+  "lists": [
+    {
+      "id": "personal",
+      "name": "我的书单",
+      "kind": "personal",
+      "default_lang": "cn",
+      "priority_levels": [
+        { "value": 0, "label": "P0 — 最高优先级" },
+        { "value": 1, "label": "P1 — 第二优先级" },
+        { "value": 2, "label": "P2 — 第三优先级" },
+        { "value": 3, "label": "P3 — 第四优先级" }
+      ],
+      "books": [
+        {
+          "id": "thinking-in-systems",
+          "title": {
+            "text": "Thinking in Systems",
+            "lang": "en",
+            "script": "latin"
+          },
+          "priority": 0,
+          "translations": {
+            "cn": "系统之美"
+          },
+          "author": "Donella H. Meadows",
+          "aliases": [],
+          "search": {
+            "lang": "en",
+            "terms": ["Thinking in Systems", "Donella Meadows"]
+          },
+          "sources": [
+            {
+              "url": "https://archive.org/download/thinking-in-systems-donella-meadows/Thinking%20in%20Systems.pdf",
+              "domain": "archive.org"
+            }
+          ],
+          "chapters": [
+            {
+              "title": "Introduction: The Systems Lens",
+              "translations": { "cn": "导言：系统视角" }
+            },
+            {
+              "title": "ONE. The Basics",
+              "translations": { "cn": "第一章：基础" }
+            },
+            {
+              "title": "TWO. A Brief Visit to the Systems Zoo",
+              "translations": { "cn": "第二章：系统动物园巡礼" }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

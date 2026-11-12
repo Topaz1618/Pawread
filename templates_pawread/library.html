@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block title %}书单 · Pawread{% end %}
+
+{% block body %}
+<main>
+  <div class="shell" style="position:relative">
+    <div class="glow glow-top"></div>
+    <div class="glow glow-lav" style="top:400px;left:-140px;width:400px;height:400px"></div>
+
+    <!-- 顶部标题区 -->
+    <section style="position:relative;padding:24px 0 32px">
+      <nav class="breadcrumb">
+        <a href="/"></a>
+        <span class="material-symbols-outlined" style="font-size:16px;opacity:0.4">chevron_right</span>
+        <span class="cur" data-i18n="nav.library"></span>
+      </nav>
+      <div style="display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:24px">
+        <div style="max-width:640px">
+          <h1 class="t-display" style="font-size:40px;line-height:50px;margin-bottom:8px" data-i18n="lib.title"></h1>
+          <p class="t-body-lg t-muted" data-i18n="lib.desc"></p>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px">
+          <span class="pill pill-lav" id="libSummary">…</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 搜索 + 过滤 -->
+    <section style="position:relative;margin-bottom:28px">
+      <div style="display:flex;flex-wrap:wrap;gap:16px;align-items:center;margin-bottom:16px">
+        <div class="search-pill" style="flex:1;min-width:280px;max-width:520px;padding:4px">
+          <div class="search-pill-icon" style="width:40px;height:40px">
+            <span class="material-symbols-outlined" style="font-size:18px;color:#000">search</span>
+          </div>
+          <input type="search" id="searchInput" data-i18n-ph="lib.search"
+                 style="padding:10px 14px;font-size:14px"/>
+        </div>
+        <label class="t-label" style="display:flex;align-items:center;gap:8px;cursor:pointer;white-space:nowrap">
+          <input type="checkbox" id="onlyNoted" checked style="width:auto;accent-color:var(--rose-500)"/>
+          <span data-i18n="lib.onlyNoted"></span>
+        </label>
+      </div>
+      <div class="pill-group" id="prioFilters" style="justify-content:flex-start"></div>
+      <div class="pill-group" id="stateFilters" style="justify-content:flex-start;margin-top:10px"></div>
+    </section>
+
+    <!-- 卡片列表 -->
+    <section id="libList" style="position:relative;display:flex;flex-direction:column;gap:12px"></section>
+  </div>
+</main>
+{% end %}
+
+{% block scripts %}
+<script src="/static/js/library.js"></script>
+{% end %}

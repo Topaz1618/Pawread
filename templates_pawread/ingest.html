@@ -1,0 +1,103 @@
+{% extends "base.html" %}
+{% block title %}Pawread · 读书笔记{% end %}
+
+{% block body %}
+<main>
+  <div class="shell" style="position:relative">
+    <div class="glow glow-top"></div>
+    <div class="glow glow-rose" style="top:380px;left:-130px;width:380px;height:380px"></div>
+    <div class="glow glow-lav" style="top:800px;right:-140px;width:420px;height:420px"></div>
+
+    <!-- Hero：居中 -->
+    <section style="position:relative;padding:24px 0 48px;text-align:center;max-width:896px;margin:0 auto">
+      <div class="badge" style="margin-bottom:24px">
+        <span style="width:6px;height:6px;border-radius:9999px;background:#000;animation:ping 1.6s infinite"></span>
+        <span data-i18n="ingest.badge"></span>
+      </div>
+      <h1 class="t-display" style="margin-bottom:16px" data-i18n="ingest.title"></h1>
+      <p class="t-body-xl t-muted" style="max-width:672px;margin:0 auto;line-height:1.7"
+         data-i18n="ingest.desc"></p>
+
+      <!-- 搜索胶囊 -->
+      <div style="width:100%;max-width:672px;margin:32px auto 0">
+        <div class="search-pill">
+          <div class="search-pill-icon">
+            <span class="material-symbols-outlined" style="font-size:20px;color:#000">library_add</span>
+          </div>
+          <textarea id="titleInput" rows="2"
+            style="flex:1;min-width:0;background:transparent;border:none;outline:none;resize:none;padding:12px 16px;font-family:var(--font-body);font-size:16px;line-height:24px;color:#000"
+            data-i18n-ph="ingest.ph"></textarea>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:12px;margin-top:20px">
+          <select id="langSelect" style="width:auto;min-width:140px;border-radius:9999px;padding:10px 20px;font-family:var(--font-label);font-weight:600">
+            <option value="auto">自动识别 Auto</option>
+            <option value="cn">简体中文</option>
+            <option value="en">English</option>
+            <option value="es">Español</option>
+            <option value="de">Deutsch</option>
+            <option value="fr">Français</option>
+            <option value="ja">日本語</option>
+          </select>
+          <button class="btn btn-primary" id="submitBtn" style="padding:12px 28px">
+            <span class="material-symbols-outlined" style="font-size:18px">play_arrow</span>
+            <span data-i18n="ingest.submit"></span>
+          </button>
+          <span class="t-label-sm t-faint" id="countHint">0</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 三个特性卡 -->
+    <section style="max-width:1024px;margin:0 auto 48px;display:grid;grid-template-columns:repeat(3,1fr);gap:16px">
+      <div class="card card-pad" style="display:flex;align-items:flex-start;gap:16px">
+        <div class="list-icon icon-rose" style="width:40px;height:40px">
+          <span class="material-symbols-outlined" style="font-size:20px">translate</span>
+        </div>
+        <div>
+          <h4 class="t-headline" style="margin-bottom:4px" data-i18n="ingest.f1t"></h4>
+          <p class="t-body t-muted" data-i18n="ingest.f1d"></p>
+        </div>
+      </div>
+      <div class="card card-pad" style="display:flex;align-items:flex-start;gap:16px">
+        <div class="list-icon icon-lav" style="width:40px;height:40px">
+          <span class="material-symbols-outlined" style="font-size:20px">auto_awesome</span>
+        </div>
+        <div>
+          <h4 class="t-headline" style="margin-bottom:4px" data-i18n="ingest.f2t"></h4>
+          <p class="t-body t-muted" data-i18n="ingest.f2d"></p>
+        </div>
+      </div>
+      <div class="card card-pad" style="display:flex;align-items:flex-start;gap:16px">
+        <div class="list-icon icon-rose" style="width:40px;height:40px">
+          <span class="material-symbols-outlined" style="font-size:20px">menu_book</span>
+        </div>
+        <div>
+          <h4 class="t-headline" style="margin-bottom:4px" data-i18n="ingest.f3t"></h4>
+          <p class="t-body t-muted" data-i18n="ingest.f3d"></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 队列 -->
+    <section style="max-width:1024px;margin:0 auto">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;padding:0 4px">
+        <div style="display:flex;align-items:center;gap:12px">
+          <div class="list-icon icon-lav" style="width:40px;height:40px">
+            <span class="material-symbols-outlined" style="font-size:20px">pending_actions</span>
+          </div>
+          <span class="t-headline-lg" data-i18n="ingest.queue"></span>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px">
+          <span class="pill pill-rose" id="queueSummary">0</span>
+          <button class="btn btn-ghost btn-sm" id="clearDoneBtn" data-i18n="ingest.clearDone"></button>
+        </div>
+      </div>
+      <div id="queueList" style="display:flex;flex-direction:column;gap:12px"></div>
+    </section>
+  </div>
+</main>
+{% end %}
+
+{% block scripts %}
+<script src="/static/js/ingest.js"></script>
+{% end %}

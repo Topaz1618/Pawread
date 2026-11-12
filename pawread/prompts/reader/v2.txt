@@ -1,0 +1,8 @@
+生成详细笔记，不允许丢失和压缩内容，禁止偷懒！！！
+
+书名：{title}
+章节：{chapter}
+页码：第 {start_page} 到 {end_page} 页
+
+正文：
+{text}

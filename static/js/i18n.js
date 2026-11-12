@@ -1,0 +1,375 @@
+/* Pawread 国际化
+ *
+ * 语言选择存在 localStorage，全站共用。
+ * 文案表放在这里，前端按 `data-i18n` 属性替换文本节点。
+ *
+ * **书名译名**由后端处理 —— `data/booklists/*.json` 里每本书有
+ * `translations` 字典，前端按当前语言查表，查不到退回原名。
+ * 这一层不用翻译表，它查的是书的数据。
+ */
+
+(function () {
+  'use strict';
+
+  /** 文案表。 */
+  const I18N = {
+    cn: {
+      'nav.ingest': '操作',
+      'nav.library': '书单',
+      'nav.reader': '阅读',
+      'ingest.title': '读书作业',
+      'ingest.desc': '粘贴书名，每行一个，一次最多 100 本。中英文西德文都可以 —— 中文书名会自动译成英文原标题再检索。',
+      'ingest.label': '书名清单',
+      'ingest.lang': '语言',
+      'ingest.submit': '开始处理',
+      'ingest.queue': '处理队列',
+      'ingest.empty': '还没有任务',
+      'ingest.emptyHint': '在上面粘贴书名开始',
+      'ingest.clearDone': '清除已完成',
+      'ingest.count': '{n} 本',
+      'ingest.submitted': '已提交 {n} 本',
+      'ingest.maxBooks': '一次最多 100 本',
+      'ingest.read': '阅读',
+      'ingest.source': '来源',
+      'lib.title': '我的书单',
+      'lib.desc': '按优先级筛选，点击任意一本进入阅读模式。',
+      'lib.all': '全部书籍',
+      'lib.priority': '优先级',
+      'lib.status': '状态',
+      'lib.search': '搜索书名或译名…',
+      'lib.onlyNoted': '只看有笔记的',
+      'lib.colTitle': '书名',
+      'lib.colZh': '中文译名',
+      'lib.colPrio': '优先级',
+      'lib.colState': '状态',
+      'lib.empty': '没有符合条件的书',
+      'lib.summary': '显示 {shown} / {total}　有笔记 {noted}',
+      'lib.unranked': '未分级',
+      'lib.hasNote': '有笔记',
+      'reader.allBooks': '全部书籍',
+      'reader.noNote': '还没有笔记',
+      'reader.loading': '载入中…',
+      'reader.back': '书单',
+      'state.pending': '排队中',
+      'state.searching': '检索资源',
+      'state.downloading': '下载中',
+      'state.verifying': '校验内容',
+      'state.noting': '生成笔记',
+      'state.available': '资源就位',
+      'state.noted': '已完成',
+      'state.unavailable': '未找到',
+      'state.failed': '失败',
+      'group.noted': '有笔记',
+      'group.active': '处理中',
+      'group.unavailable': '未找到',
+      'group.failed': '失败',
+      'group.pending': '未处理',
+      'prio.0': 'P0 最高',
+      'prio.1': 'P1 第二',
+      'prio.2': 'P2 第三',
+      'prio.3': 'P3 第四',
+      'ingest.badge': 'Pawread 读书台',
+      'ingest.ph': '粘贴书名，每行一个…\nThinking in Systems\n穷查理宝典\nEl principito',
+      'ingest.f1t': '多语言检索',
+      'ingest.f1d': '中文、西班牙语、德语书名都会先归一到英文原标题再检索。',
+      'ingest.f2t': '完整笔记',
+      'ingest.f2d': '不压缩、不改原意，原文引用逐句保留。',
+      'ingest.f3t': '分层阅读',
+      'ingest.f3d': '每份笔记带目录与要点预览，随时跳读。',
+      'ingest.summary': '{total} 个 · 进行 {running} · 完成 {done} · 失败 {failed}',
+      'lib.read': '阅读',
+      'reader.progress': '阅读进度',
+      'reader.reading': '阅读中',
+    },
+    en: {
+      'nav.ingest': 'Ingest',
+      'nav.library': 'Library',
+      'nav.reader': 'Read',
+      'ingest.title': 'Reading Queue',
+      'ingest.desc': 'Paste book titles, one per line, up to 100 at a time. Chinese, English, Spanish and German titles are all accepted — Chinese ones are translated to their original English titles before searching.',
+      'ingest.label': 'Book titles',
+      'ingest.lang': 'Language',
+      'ingest.submit': 'Start',
+      'ingest.queue': 'Processing queue',
+      'ingest.empty': 'No tasks yet',
+      'ingest.emptyHint': 'Paste titles above to begin',
+      'ingest.clearDone': 'Clear finished',
+      'ingest.count': '{n} books',
+      'ingest.submitted': 'Submitted {n} books',
+      'ingest.maxBooks': 'Up to 100 books at a time',
+      'ingest.read': 'Read',
+      'ingest.source': 'Source',
+      'lib.title': 'My Library',
+      'lib.desc': 'Filter by priority, click any book to start reading.',
+      'lib.all': 'All books',
+      'lib.priority': 'Priority',
+      'lib.status': 'Status',
+      'lib.search': 'Search title or translation…',
+      'lib.onlyNoted': 'Only with notes',
+      'lib.colTitle': 'Title',
+      'lib.colZh': 'Translation',
+      'lib.colPrio': 'Priority',
+      'lib.colState': 'Status',
+      'lib.empty': 'No books match the filters',
+      'lib.summary': 'Showing {shown} / {total}　{noted} with notes',
+      'lib.unranked': 'Unranked',
+      'lib.hasNote': 'Noted',
+      'reader.allBooks': 'All books',
+      'reader.noNote': 'No notes yet',
+      'reader.loading': 'Loading…',
+      'reader.back': 'Library',
+      'state.pending': 'Queued',
+      'state.searching': 'Searching',
+      'state.downloading': 'Downloading',
+      'state.verifying': 'Verifying',
+      'state.noting': 'Writing notes',
+      'state.available': 'Ready',
+      'state.noted': 'Done',
+      'state.unavailable': 'Not found',
+      'state.failed': 'Failed',
+      'group.noted': 'Noted',
+      'group.active': 'In progress',
+      'group.unavailable': 'Not found',
+      'group.failed': 'Failed',
+      'group.pending': 'Not started',
+      'prio.0': 'P0 Highest',
+      'prio.1': 'P1 Second',
+      'prio.2': 'P2 Third',
+      'prio.3': 'P3 Fourth',
+      'ingest.badge': 'Pawread Reading Desk',
+      'ingest.ph': 'Paste book titles, one per line…\nThinking in Systems\n穷查理宝典\nEl principito',
+      'ingest.f1t': 'Multilingual',
+      'ingest.f1d': 'Chinese, Spanish and German titles are normalised to their English original before searching.',
+      'ingest.f2t': 'Complete notes',
+      'ingest.f2d': 'Nothing compressed, nothing paraphrased — original quotes kept verbatim.',
+      'ingest.f3t': 'Layered reading',
+      'ingest.f3d': 'Every note carries a table of contents and a preview of each chapter.',
+      'ingest.summary': '{total} total · {running} running · {done} done · {failed} failed',
+      'lib.read': 'Read',
+      'reader.progress': 'Reading progress',
+      'reader.reading': 'Reading',
+    },
+    es: {
+      'nav.ingest': 'Ingesta',
+      'nav.library': 'Biblioteca',
+      'nav.reader': 'Leer',
+      'ingest.title': 'Cola de lectura',
+      'ingest.desc': 'Pega títulos de libros, uno por línea, hasta 100 a la vez. Se aceptan chino, inglés, español y alemán — los chinos se traducen al título original en inglés antes de buscar.',
+      'ingest.label': 'Títulos de libros',
+      'ingest.lang': 'Idioma',
+      'ingest.submit': 'Empezar',
+      'ingest.queue': 'Cola de proceso',
+      'ingest.empty': 'Aún no hay tareas',
+      'ingest.emptyHint': 'Pega títulos arriba para empezar',
+      'ingest.clearDone': 'Limpiar terminados',
+      'ingest.count': '{n} libros',
+      'ingest.submitted': '{n} libros enviados',
+      'ingest.maxBooks': 'Hasta 100 libros a la vez',
+      'ingest.read': 'Leer',
+      'ingest.source': 'Fuente',
+      'lib.title': 'Mi biblioteca',
+      'lib.desc': 'Filtra por prioridad, haz clic en un libro para leerlo.',
+      'lib.all': 'Todos los libros',
+      'lib.priority': 'Prioridad',
+      'lib.status': 'Estado',
+      'lib.search': 'Buscar título o traducción…',
+      'lib.onlyNoted': 'Solo con notas',
+      'lib.colTitle': 'Título',
+      'lib.colZh': 'Traducción',
+      'lib.colPrio': 'Prioridad',
+      'lib.colState': 'Estado',
+      'lib.empty': 'Ningún libro coincide con los filtros',
+      'lib.summary': 'Mostrando {shown} / {total}　{noted} con notas',
+      'lib.unranked': 'Sin prioridad',
+      'lib.hasNote': 'Con notas',
+      'reader.allBooks': 'Todos los libros',
+      'reader.noNote': 'Aún no hay notas',
+      'reader.loading': 'Cargando…',
+      'reader.back': 'Biblioteca',
+      'state.pending': 'En cola',
+      'state.searching': 'Buscando',
+      'state.downloading': 'Descargando',
+      'state.verifying': 'Verificando',
+      'state.noting': 'Escribiendo notas',
+      'state.available': 'Listo',
+      'state.noted': 'Hecho',
+      'state.unavailable': 'No encontrado',
+      'state.failed': 'Falló',
+      'group.noted': 'Con notas',
+      'group.active': 'En proceso',
+      'group.unavailable': 'No encontrado',
+      'group.failed': 'Falló',
+      'group.pending': 'Sin empezar',
+      'prio.0': 'P0 Máxima',
+      'prio.1': 'P1 Segunda',
+      'prio.2': 'P2 Tercera',
+      'prio.3': 'P3 Cuarta',
+      'ingest.badge': 'Mesa de lectura Pawread',
+      'ingest.ph': 'Pega títulos, uno por línea…\nThinking in Systems\n穷查理宝典\nEl principito',
+      'ingest.f1t': 'Multilingüe',
+      'ingest.f1d': 'Los títulos chinos, españoles y alemanes se normalizan al original en inglés antes de buscar.',
+      'ingest.f2t': 'Notas completas',
+      'ingest.f2d': 'Sin comprimir ni parafrasear — las citas originales se conservan textualmente.',
+      'ingest.f3t': 'Lectura por capas',
+      'ingest.f3d': 'Cada nota incluye un índice y un adelanto de cada capítulo.',
+      'ingest.summary': '{total} en total · {running} en curso · {done} listos · {failed} fallidos',
+      'lib.read': 'Leer',
+      'reader.progress': 'Progreso de lectura',
+      'reader.reading': 'Leyendo',
+    },
+    de: {
+      'nav.ingest': 'Eingabe',
+      'nav.library': 'Bibliothek',
+      'nav.reader': 'Lesen',
+      'ingest.title': 'Leseaufträge',
+      'ingest.desc': 'Buchtitel einfügen, einen pro Zeile, bis zu 100 auf einmal. Chinesisch, Englisch, Spanisch und Deutsch werden unterstützt — chinesische Titel werden vor der Suche ins englische Original übersetzt.',
+      'ingest.label': 'Buchtitel',
+      'ingest.lang': 'Sprache',
+      'ingest.submit': 'Starten',
+      'ingest.queue': 'Verarbeitungswarteschlange',
+      'ingest.empty': 'Noch keine Aufträge',
+      'ingest.emptyHint': 'Titel oben einfügen, um zu beginnen',
+      'ingest.clearDone': 'Fertige entfernen',
+      'ingest.count': '{n} Bücher',
+      'ingest.submitted': '{n} Bücher übermittelt',
+      'ingest.maxBooks': 'Bis zu 100 Bücher auf einmal',
+      'ingest.read': 'Lesen',
+      'ingest.source': 'Quelle',
+      'lib.title': 'Meine Bibliothek',
+      'lib.desc': 'Nach Priorität filtern, zum Lesen auf ein Buch klicken.',
+      'lib.all': 'Alle Bücher',
+      'lib.priority': 'Priorität',
+      'lib.status': 'Status',
+      'lib.search': 'Titel oder Übersetzung suchen…',
+      'lib.onlyNoted': 'Nur mit Notizen',
+      'lib.colTitle': 'Titel',
+      'lib.colZh': 'Übersetzung',
+      'lib.colPrio': 'Priorität',
+      'lib.colState': 'Status',
+      'lib.empty': 'Kein Buch entspricht den Filtern',
+      'lib.summary': 'Zeige {shown} / {total}　{noted} mit Notizen',
+      'lib.unranked': 'Ohne Rang',
+      'lib.hasNote': 'Mit Notizen',
+      'reader.allBooks': 'Alle Bücher',
+      'reader.noNote': 'Noch keine Notizen',
+      'reader.loading': 'Wird geladen…',
+      'reader.back': 'Bibliothek',
+      'state.pending': 'In Warteschlange',
+      'state.searching': 'Suche',
+      'state.downloading': 'Download',
+      'state.verifying': 'Prüfung',
+      'state.noting': 'Notizen werden erstellt',
+      'state.available': 'Bereit',
+      'state.noted': 'Fertig',
+      'state.unavailable': 'Nicht gefunden',
+      'state.failed': 'Fehlgeschlagen',
+      'group.noted': 'Mit Notizen',
+      'group.active': 'In Arbeit',
+      'group.unavailable': 'Nicht gefunden',
+      'group.failed': 'Fehlgeschlagen',
+      'group.pending': 'Nicht begonnen',
+      'prio.0': 'P0 Höchste',
+      'prio.1': 'P1 Zweite',
+      'prio.2': 'P2 Dritte',
+      'prio.3': 'P3 Vierte',
+      'ingest.badge': 'Pawread Lese-Tisch',
+      'ingest.ph': 'Buchtitel einfügen, einer pro Zeile…\nThinking in Systems\n穷查理宝典\nEl principito',
+      'ingest.f1t': 'Mehrsprachig',
+      'ingest.f1d': 'Chinesische, spanische und deutsche Titel werden vor der Suche ins englische Original normalisiert.',
+      'ingest.f2t': 'Vollständige Notizen',
+      'ingest.f2d': 'Nichts gekürzt, nichts umgeschrieben — Originalzitate bleiben wörtlich erhalten.',
+      'ingest.f3t': 'Gestaffelt lesen',
+      'ingest.f3d': 'Jede Notiz enthält ein Inhaltsverzeichnis und eine Vorschau jedes Kapitels.',
+      'ingest.summary': '{total} gesamt · {running} laufend · {done} fertig · {failed} fehlgeschlagen',
+      'lib.read': 'Lesen',
+      'reader.progress': 'Lesefortschritt',
+      'reader.reading': 'Lesend',
+    },
+  };
+
+  /** 当前语言。 */
+  let current = 'cn';
+
+  /** 取当前语言。 */
+  function getLang() { return current; }
+
+  /** 取文案。
+   *
+   * @param {string} key 键
+   * @param {object} [vars] 插值变量
+   * @returns {string} 文案
+   */
+  function t(key, vars) {
+    let text = (I18N[current] && I18N[current][key])
+            || (I18N.cn[key]) || key;
+    if (vars) {
+      Object.keys(vars).forEach(k => {
+        text = text.replace(new RegExp('\\{' + k + '\\}', 'g'), vars[k]);
+      });
+    }
+    return text;
+  }
+  /** 应用语言到 DOM。
+   *
+   * 带 `data-i18n` 的元素替换文本；
+   * 带 `data-i18n-ph` 的替换 placeholder；
+   * 带 `data-i18n-title` 的替换 title。
+   */
+  function applyDom(root) {
+    const scope = root || document;
+    scope.querySelectorAll('[data-i18n]').forEach(el => {
+      el.textContent = t(el.dataset.i18n);
+    });
+    scope.querySelectorAll('[data-i18n-ph]').forEach(el => {
+      el.placeholder = t(el.dataset.i18nPh);
+    });
+    scope.querySelectorAll('[data-i18n-title]').forEach(el => {
+      el.title = t(el.dataset.i18nTitle);
+    });
+  }
+
+  /** 切换语言。
+   *
+   * @param {string} lang 语言代码
+   * @param {boolean} [reload] 是否刷新页面重新拉数据
+   */
+  function setLang(lang, reload) {
+    if (!I18N[lang]) return;
+    current = lang;
+    try { localStorage.setItem('pawread:lang', lang); } catch (e) { /* 忽略 */ }
+    document.documentElement.lang = lang === 'cn' ? 'zh-CN' : lang;
+    applyDom();
+    document.querySelectorAll('#langSwitch button').forEach(b => {
+      b.classList.toggle('on', b.dataset.lang === lang);
+    });
+    if (reload !== false) {
+      // 书名译名要重新向后端取，刷新最省事
+      location.reload();
+    }
+  }
+
+  /** 初始化。 */
+  function init() {
+    let saved = null;
+    try { saved = localStorage.getItem('pawread:lang'); } catch (e) { /* 忽略 */ }
+    current = (saved && I18N[saved]) ? saved : 'cn';
+    document.documentElement.lang = current === 'cn' ? 'zh-CN' : current;
+
+    document.querySelectorAll('#langSwitch button').forEach(b => {
+      b.classList.toggle('on', b.dataset.lang === current);
+      b.addEventListener('click', () => {
+        if (b.dataset.lang !== current) setLang(b.dataset.lang, true);
+      });
+    });
+
+    applyDom();
+  }
+
+  window.PawreadI18n = { t, setLang, getLang, applyDom };
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();

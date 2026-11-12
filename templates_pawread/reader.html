@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+{% block title %}{{ book['display_title'] if book else '阅读' }} · Pawread{% end %}
+
+{% block body %}
+<div class="reader-wrap">
+  <!-- 侧边栏：chat2.html 的结构 -->
+  <aside class="sidebar">
+    <div class="sidebar-head">
+      <div style="display:flex;align-items:center;gap:10px">
+        <div class="brand-mark" style="width:32px;height:32px">
+          <span><span class="material-symbols-outlined" style="font-size:18px;color:#000">auto_stories</span></span>
+        </div>
+        <div>
+          <div class="brand-name" style="font-size:18px">Pawread</div>
+          <div class="brand-sub">Library</div>
+        </div>
+      </div>
+      <a href="/library" class="btn btn-ghost btn-sm" style="text-decoration:none"
+         data-i18n="reader.back"></a>
+    </div>
+
+    <div class="sidebar-scroll">
+      <div class="side-section-label" data-i18n="reader.allBooks"></div>
+      <div id="sideList"></div>
+    </div>
+
+    <div style="padding-top:12px;border-top:1px solid var(--hairline)">
+      <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 12px;border-radius:1rem;background:rgba(250,245,255,0.70)">
+        <div style="display:flex;align-items:center;gap:8px">
+          <span class="material-symbols-outlined t-muted" style="font-size:18px">bookmark</span>
+          <span class="t-label-sm t-muted" data-i18n="reader.progress"></span>
+        </div>
+        <span class="t-label" id="readProgress" style="font-weight:700;color:#000">0%</span>
+      </div>
+    </div>
+  </aside>
+
+  <!-- 顶栏：chat2.html 的结构 -->
+  <header class="reader-top">
+    <div class="reader-top-inner">
+      <div style="display:flex;align-items:center;gap:12px">
+        <div style="display:flex;align-items:center;gap:8px;padding:4px 12px;border-radius:9999px;background:var(--lav-50)">
+          <span style="width:8px;height:8px;border-radius:9999px;background:var(--rose-400);animation:pulse 2s infinite;box-shadow:0 0 8px var(--rose-400)"></span>
+          <span class="t-label-sm t-muted" data-i18n="reader.reading"></span>
+        </div>
+        {% if book %}
+        <span class="t-label-sm t-faint" style="max-width:36ch;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">
+          {{ book['title']['text'] }}
+        </span>
+        {% end %}
+      </div>
+      <div style="display:flex;align-items:center;gap:12px">
+        <div class="lang-switch" id="langSwitch">
+          <button data-lang="cn" class="on">中</button>
+          <button data-lang="en">EN</button>
+          <button data-lang="es">ES</button>
+          <button data-lang="de">DE</button>
+        </div>
+        <div class="avatar">
+          <span><span class="material-symbols-outlined" style="font-size:18px;color:#fff">person</span></span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- 正文 -->
+  <main class="reader-main" id="readerMain">
+    <div class="reader-inner">
+      {% if book %}
+      <nav class="breadcrumb">
+        <a href="/library" data-i18n="nav.library"></a>
+        <span class="material-symbols-outlined" style="font-size:16px;opacity:0.4">chevron_right</span>
+        <span class="cur">{{ book['title']['text'] }}</span>
+      </nav>
+      {% end %}
+      <div class="md" id="mdRoot"></div>
+    </div>
+  </main>
+</div>
+{% end %}
+
+{% block scripts %}
+<script src="/static/vendor/marked.min.js"></script>
+<script>
+  window.PAWREAD_BOOK_ID = "{{ book_id }}";
+</script>
+<script src="/static/js/reader.js"></script>
+{% end %}

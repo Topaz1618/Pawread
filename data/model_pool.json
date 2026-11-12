@@ -1,0 +1,48 @@
+{
+  "_comment": "百炼模型池。数据来源：GET https://dashscope.aliyuncs.com/api/v1/models + 实测可用性探测。实测口径：对每个候选发起一次带 enable_search 的真实调用，能返回且 usage.plugins.search.count>0 才算可用。目录元数据不能替代实测。",
+  "_endpoint": {
+    "native": "https://dashscope.aliyuncs.com/api/v1/services/aigc/text-generation/generation",
+    "compatible": "https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions",
+    "_note": "搜索只在原生端点生效。compatible-mode 的 extra_body.enable_search 被静默忽略，模型会自称不做实时搜索。"
+  },
+  "tiers": {
+    "test": {
+      "_desc": "测试阶段先用最便宜的，够用即可",
+      "models": ["qwen-flash", "qwen-flash-2025-07-28"]
+    },
+    "standard": {
+      "_desc": "日常主力",
+      "models": ["qwen-plus", "qwen-plus-latest", "qwen-plus-2025-12-01", "qwen-plus-2025-07-14"]
+    },
+    "quality": {
+      "_desc": "高质量，读书总结等长文本任务",
+      "models": ["deepseek-v4-flash-0731", "qwen-max", "deepseek-v4-pro-0813", "deepseek-v4-pro"]
+    },
+    "max": {
+      "_desc": "最高质量，最贵",
+      "models": ["qwen3.7-max", "qwen3.7-max-2026-05-20", "qwen3.7-max-2026-05-17", "qwen3.7-max-preview"]
+    },
+    "character": {
+      "_desc": "角色扮演模型，本次探测未触发搜索，按需再用",
+      "models": ["qwen-plus-character", "qwen-flash-character"]
+    }
+  },
+  "prices_usd_per_million": {
+    "qwen-flash": { "input": 0.15, "output": 1.5 },
+    "qwen-plus": { "input": 0.8, "output": 2.0 },
+    "deepseek-v4-flash-0731": { "input": 1.5, "output": 4.5 },
+    "qwen-max": { "input": 2.4, "output": 9.6 },
+    "deepseek-v4-pro-0813": { "input": 4.5, "output": 13.5 },
+    "deepseek-v4-pro": { "input": 12.0, "output": 24.0 },
+    "qwen3.7-max": { "input": 12.0, "output": 36.0 }
+  },
+  "budget": {
+    "_note": "按模型各 1M token 的额度记账。额度用尽即停并切换到档位内的下一个模型。",
+    "per_model_tokens": 1000000
+  },
+  "unusable_examples": [
+    "qwen3.8-max", "qwen3.5-flash", "qwen3.7-flash", "qwen3.8-flash",
+    "kimi-k3.1-pro", "glm-5.2-fast-preview", "qwen3.5-35b-a3b", "qwen3.5-27b"
+  ],
+  "_unusable_reason": "元数据标注支持 web-search，但账号未开通该模型，调用返回 HTTPError url error。目录元数据不能替代实测。"
+}

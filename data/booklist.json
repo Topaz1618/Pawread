@@ -1,0 +1,415 @@
+[
+  {
+    "n": 1,
+    "title": "Poor Charlie's Almanack",
+    "url": "https://order.poorcharliesalmanack.com/",
+    "domain": "order.poorcharliesalmanack.com",
+    "path": "/"
+  },
+  {
+    "n": 2,
+    "title": "Seeking Wisdom: From Darwin to Munger",
+    "url": "https://openlibrary.org/search?q=Seeking+Wisdom+Peter+Bevelin",
+    "domain": "openlibrary.org",
+    "path": "/search?q=Seeking+Wisdom+Peter+Bevelin"
+  },
+  {
+    "n": 3,
+    "title": "Good Strategy Bad Strategy",
+    "url": "https://openlibrary.org/search?q=Good+Strategy+Bad+Strategy",
+    "domain": "openlibrary.org",
+    "path": "/search?q=Good+Strategy+Bad+Strategy"
+  },
+  {
+    "n": 4,
+    "title": "The Art of Strategy",
+    "url": "https://openlibrary.org/works/OL2979491W/The_Art_of_Strategy",
+    "domain": "openlibrary.org",
+    "path": "/works/OL2979491W/The_Art_of_Strategy"
+  },
+  {
+    "n": 5,
+    "title": "Superforecasting",
+    "url": "https://openlibrary.org/search?q=Superforecasting+Tetlock",
+    "domain": "openlibrary.org",
+    "path": "/search?q=Superforecasting+Tetlock"
+  },
+  {
+    "n": 6,
+    "title": "Thinking in Systems",
+    "url": "https://openlibrary.org/search?q=Thinking+in+Systems+Meadows",
+    "domain": "openlibrary.org",
+    "path": "/search?q=Thinking+in+Systems+Meadows"
+  },
+  {
+    "n": 7,
+    "title": "The Social Animal",
+    "url": "https://openlibrary.org/search?q=The+Social+Animal+Aronson",
+    "domain": "openlibrary.org",
+    "path": "/search?q=The+Social+Animal+Aronson"
+  },
+  {
+    "n": 8,
+    "title": "Influence: The Psychology of Persuasion",
+    "url": "https://openlibrary.org/search?q=Influence+Cialdini",
+    "domain": "openlibrary.org",
+    "path": "/search?q=Influence+Cialdini"
+  },
+  {
+    "n": 9,
+    "title": "Financial Intelligence for Entrepreneurs",
+    "url": "https://openlibrary.org/search?q=Financial+Intelligence+for+Entrepreneurs",
+    "domain": "openlibrary.org",
+    "path": "/search?q=Financial+Intelligence+for+Entrepreneurs"
+  },
+  {
+    "n": 10,
+    "title": "The Psychology of Money",
+    "url": "https://openlibrary.org/search?q=The+Psychology+of+Money",
+    "domain": "openlibrary.org",
+    "path": "/search?q=The+Psychology+of+Money"
+  },
+  {
+    "n": 11,
+    "title": "Difficult Conversations",
+    "url": "https://openlibrary.org/search?q=Difficult+Conversations",
+    "domain": "openlibrary.org",
+    "path": "/search?q=Difficult+Conversations"
+  },
+  {
+    "n": 12,
+    "title": "Never Split the Difference",
+    "url": "https://openlibrary.org/search?q=Never+Split+the+Difference",
+    "domain": "openlibrary.org",
+    "path": "/search?q=Never+Split+the+Difference"
+  },
+  {
+    "n": 13,
+    "title": "Playing to Win",
+    "url": "https://openlibrary.org/search?q=Playing+to+Win+Lafley",
+    "domain": "openlibrary.org",
+    "path": "/search?q=Playing+to+Win+Lafley"
+  },
+  {
+    "n": 14,
+    "title": "Principles of Corporate Finance",
+    "url": "https://openlibrary.org/search?q=Principles+of+Corporate+Finance",
+    "domain": "openlibrary.org",
+    "path": "/search?q=Principles+of+Corporate+Finance"
+  },
+  {
+    "n": 15,
+    "title": "The Intelligent Investor",
+    "url": "https://openlibrary.org/search?q=The+Intelligent+Investor",
+    "domain": "openlibrary.org",
+    "path": "/search?q=The+Intelligent+Investor"
+  },
+  {
+    "n": 16,
+    "title": "Competitive Strategy",
+    "url": "https://openlibrary.org/search?q=Competitive+Strategy+Porter",
+    "domain": "openlibrary.org",
+    "path": "/search?q=Competitive+Strategy+Porter"
+  },
+  {
+    "n": 17,
+    "title": "The Innovator's Dilemma",
+    "url": "https://openlibrary.org/search?q=The+Innovators+Dilemma",
+    "domain": "openlibrary.org",
+    "path": "/search?q=The+Innovators+Dilemma"
+  },
+  {
+    "n": 18,
+    "title": "The Effective Executive",
+    "url": "https://openlibrary.org/search?q=The+Effective+Executive",
+    "domain": "openlibrary.org",
+    "path": "/search?q=The+Effective+Executive"
+  },
+  {
+    "n": 19,
+    "title": "High Output Management",
+    "url": "https://openlibrary.org/search?q=High+Output+Management",
+    "domain": "openlibrary.org",
+    "path": "/search?q=High+Output+Management"
+  },
+  {
+    "n": 20,
+    "title": "Getting to Yes",
+    "url": "https://openlibrary.org/search?q=Getting+to+Yes",
+    "domain": "openlibrary.org",
+    "path": "/search?q=Getting+to+Yes"
+  },
+  {
+    "n": 21,
+    "title": "Thinking in Bets",
+    "url": "https://openlibrary.org/search?q=Thinking+in+Bets",
+    "domain": "openlibrary.org",
+    "path": "/search?q=Thinking+in+Bets"
+  },
+  {
+    "n": 22,
+    "title": "The Interpretation of Financial Statements",
+    "url": "https://openlibrary.org/search?q=The+Interpretation+of+Financial+Statements",
+    "domain": "openlibrary.org",
+    "path": "/search?q=The+Interpretation+of+Financial+Statements"
+  },
+  {
+    "n": 23,
+    "title": "A Random Walk Down Wall Street",
+    "url": "https://openlibrary.org/search?q=A+Random+Walk+Down+Wall+Street",
+    "domain": "openlibrary.org",
+    "path": "/search?q=A+Random+Walk+Down+Wall+Street"
+  },
+  {
+    "n": 24,
+    "title": "The Ascent of Money",
+    "url": "https://openlibrary.org/search?q=The+Ascent+of+Money",
+    "domain": "openlibrary.org",
+    "path": "/search?q=The+Ascent+of+Money"
+  },
+  {
+    "n": 25,
+    "title": "Manias, Panics, and Crashes",
+    "url": "https://openlibrary.org/search?q=Manias+Panics+and+Crashes",
+    "domain": "openlibrary.org",
+    "path": "/search?q=Manias+Panics+and+Crashes"
+  },
+  {
+    "n": 26,
+    "title": "The Righteous Mind",
+    "url": "https://openlibrary.org/search?q=The+Righteous+Mind",
+    "domain": "openlibrary.org",
+    "path": "/search?q=The+Righteous+Mind"
+  },
+  {
+    "n": 27,
+    "title": "Games People Play",
+    "url": "https://openlibrary.org/search?q=Games+People+Play+Eric+Berne",
+    "domain": "openlibrary.org",
+    "path": "/search?q=Games+People+Play+Eric+Berne"
+  },
+  {
+    "n": 28,
+    "title": "Mistakes Were Made (But Not by Me)",
+    "url": "https://openlibrary.org/search?q=Mistakes+Were+Made+But+Not+by+Me",
+    "domain": "openlibrary.org",
+    "path": "/search?q=Mistakes+Were+Made+But+Not+by+Me"
+  },
+  {
+    "n": 29,
+    "title": "Predictably Irrational",
+    "url": "https://openlibrary.org/search?q=Predictably+Irrational",
+    "domain": "openlibrary.org",
+    "path": "/search?q=Predictably+Irrational"
+  },
+  {
+    "n": 30,
+    "title": "Why We Buy",
+    "url": "https://pacounderhill.com/books/",
+    "domain": "pacounderhill.com",
+    "path": "/books/"
+  },
+  {
+    "n": 31,
+    "title": "The Choice Factory",
+    "url": "https://openlibrary.org/search?q=The+Choice+Factory",
+    "domain": "openlibrary.org",
+    "path": "/search?q=The+Choice+Factory"
+  },
+  {
+    "n": 32,
+    "title": "The Laws of Human Nature",
+    "url": "https://openlibrary.org/search?q=The+Laws+of+Human+Nature",
+    "domain": "openlibrary.org",
+    "path": "/search?q=The+Laws+of+Human+Nature"
+  },
+  {
+    "n": 33,
+    "title": "Organizational Behavior",
+    "url": "https://openlibrary.org/search?q=Organizational+Behavior+Robbins+Judge",
+    "domain": "openlibrary.org",
+    "path": "/search?q=Organizational+Behavior+Robbins+Judge"
+  },
+  {
+    "n": 34,
+    "title": "The Human Side of Enterprise",
+    "url": "https://openlibrary.org/search?q=The+Human+Side+of+Enterprise",
+    "domain": "openlibrary.org",
+    "path": "/search?q=The+Human+Side+of+Enterprise"
+  },
+  {
+    "n": 35,
+    "title": "The Beginning of Infinity",
+    "url": "https://openlibrary.org/search?q=The+Beginning+of+Infinity",
+    "domain": "openlibrary.org",
+    "path": "/search?q=The+Beginning+of+Infinity"
+  },
+  {
+    "n": 36,
+    "title": "The Lessons of History",
+    "url": "https://openlibrary.org/books/OL8673344M/The_Lessons_of_History",
+    "domain": "openlibrary.org",
+    "path": "/books/OL8673344M/The_Lessons_of_History"
+  },
+  {
+    "n": 37,
+    "title": "The 33 Strategies of War",
+    "url": "https://openlibrary.org/search?q=The+33+Strategies+of+War",
+    "domain": "openlibrary.org",
+    "path": "/search?q=The+33+Strategies+of+War"
+  },
+  {
+    "n": 38,
+    "title": "The Art of War",
+    "url": "https://www.gutenberg.org/ebooks/17405",
+    "domain": "www.gutenberg.org",
+    "path": "/ebooks/17405"
+  },
+  {
+    "n": 39,
+    "title": "The Hard Thing About Hard Things",
+    "url": "https://openlibrary.org/search?q=The+Hard+Thing+About+Hard+Things",
+    "domain": "openlibrary.org",
+    "path": "/search?q=The+Hard+Thing+About+Hard+Things"
+  },
+  {
+    "n": 40,
+    "title": "The Mythical Man-Month",
+    "url": "https://openlibrary.org/search?q=The+Mythical+Man-Month",
+    "domain": "openlibrary.org",
+    "path": "/search?q=The+Mythical+Man-Month"
+  },
+  {
+    "n": 41,
+    "title": "Making Things Happen",
+    "url": "https://scottberkun.com/books/making-things-happen/",
+    "domain": "scottberkun.com",
+    "path": "/books/making-things-happen/"
+  },
+  {
+    "n": 42,
+    "title": "Scrum",
+    "url": "https://openlibrary.org/search?q=Scrum+Jeff+Sutherland",
+    "domain": "openlibrary.org",
+    "path": "/search?q=Scrum+Jeff+Sutherland"
+  },
+  {
+    "n": 43,
+    "title": "How to Win Friends and Influence People",
+    "url": "https://openlibrary.org/search?q=How+to+Win+Friends+and+Influence+People",
+    "domain": "openlibrary.org",
+    "path": "/search?q=How+to+Win+Friends+and+Influence+People"
+  },
+  {
+    "n": 44,
+    "title": "The 48 Laws of Power",
+    "url": "https://openlibrary.org/search?q=The+48+Laws+of+Power",
+    "domain": "openlibrary.org",
+    "path": "/search?q=The+48+Laws+of+Power"
+  },
+  {
+    "n": 45,
+    "title": "Made to Stick",
+    "url": "https://books.google.com/books?q=Made+to+Stick",
+    "domain": "books.google.com",
+    "path": "/books?q=Made+to+Stick"
+  },
+  {
+    "n": 46,
+    "title": "Crucial Conversations",
+    "url": "https://openlibrary.org/search?q=Crucial+Conversations",
+    "domain": "openlibrary.org",
+    "path": "/search?q=Crucial+Conversations"
+  },
+  {
+    "n": 47,
+    "title": "The Selfish Gene",
+    "url": "https://openlibrary.org/search?q=The+Selfish+Gene",
+    "domain": "openlibrary.org",
+    "path": "/search?q=The+Selfish+Gene"
+  },
+  {
+    "n": 48,
+    "title": "Business Cycles",
+    "url": "https://archive.org/search?query=Business+Cycles+Joseph+Schumpeter",
+    "domain": "archive.org",
+    "path": "/search?query=Business+Cycles+Joseph+Schumpeter"
+  },
+  {
+    "n": 49,
+    "title": "The Great Wave",
+    "url": "https://openlibrary.org/search?q=The+Great+Wave+David+Hackett+Fischer",
+    "domain": "openlibrary.org",
+    "path": "/search?q=The+Great+Wave+David+Hackett+Fischer"
+  },
+  {
+    "n": 50,
+    "title": "The Rise and Fall of the Great Powers",
+    "url": "https://openlibrary.org/search?q=The+Rise+and+Fall+of+the+Great+Powers",
+    "domain": "openlibrary.org",
+    "path": "/search?q=The+Rise+and+Fall+of+the+Great+Powers"
+  },
+  {
+    "n": 51,
+    "title": "The Clash of Civilizations and the Remaking of World Order",
+    "url": "https://openlibrary.org/search?q=The+Clash+of+Civilizations",
+    "domain": "openlibrary.org",
+    "path": "/search?q=The+Clash+of+Civilizations"
+  },
+  {
+    "n": 52,
+    "title": "The Limits to Growth",
+    "url": "https://www.donellameadows.org/wp-content/userfiles/Limits-to-Growth-digital-scan-version.pdf",
+    "domain": "www.donellameadows.org",
+    "path": "/wp-content/userfiles/Limits-to-Growth-digital-scan-version.pdf"
+  },
+  {
+    "n": 53,
+    "title": "The Fourth Turning",
+    "url": "https://openlibrary.org/search?q=The+Fourth+Turning",
+    "domain": "openlibrary.org",
+    "path": "/search?q=The+Fourth+Turning"
+  },
+  {
+    "n": 54,
+    "title": "The Age of Spiritual Machines",
+    "url": "https://openlibrary.org/search?q=The+Age+of+Spiritual+Machines",
+    "domain": "openlibrary.org",
+    "path": "/search?q=The+Age+of+Spiritual+Machines"
+  },
+  {
+    "n": 55,
+    "title": "The Next 100 Years",
+    "url": "https://openlibrary.org/search?q=The+Next+100+Years+George+Friedman",
+    "domain": "openlibrary.org",
+    "path": "/search?q=The+Next+100+Years+George+Friedman"
+  },
+  {
+    "n": 56,
+    "title": "The Signal and the Noise",
+    "url": "https://openlibrary.org/search?q=The+Signal+and+the+Noise",
+    "domain": "openlibrary.org",
+    "path": "/search?q=The+Signal+and+the+Noise"
+  },
+  {
+    "n": 57,
+    "title": "Forecasting: Principles and Practice",
+    "url": "https://otexts.com/fpp3/",
+    "domain": "otexts.com",
+    "path": "/fpp3/"
+  },
+  {
+    "n": 58,
+    "title": "Yesterday's Tomorrows",
+    "url": "https://openlibrary.org/search?q=Yesterday's+Tomorrows",
+    "domain": "openlibrary.org",
+    "path": "/search?q=Yesterday's+Tomorrows"
+  },
+  {
+    "n": 59,
+    "title": "The Kondratieff Waves",
+    "url": "https://books.google.com/books?q=The+Kondratieff+Waves+Nathan+Mager",
+    "domain": "books.google.com",
+    "path": "/books?q=The+Kondratieff+Waves+Nathan+Mager"
+  }
+]
