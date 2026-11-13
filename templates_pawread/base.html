@@ -53,21 +53,22 @@
 
 {% block topbar %}
 <!-- 顶栏：与 templates/report.html 一致 -->
-<header class="fixed top-0 w-full z-50 bg-white/70 backdrop-blur-xl shadow-[0_1px_16px_rgba(167,139,250,0.06)]">
+<header class="fixed top-0 w-full z-50 bg-white/10 backdrop-blur-xl ">
   <div class="h-20 w-full px-6 lg:px-margin flex items-center justify-between gap-4">
     <div class="flex items-center gap-3 shrink-0">
-      <div class="w-10 h-10 rounded-full bg-white flex items-center justify-center shadow-[0_4px_16px_rgba(244,114,182,0.2)]">
-        <span class="material-symbols-outlined text-[#8b5cf6] text-[22px]">pets</span>
+      <div class="w-10 h-10 rounded-full bg-white flex items-center justify-center ">
+        <span class="material-symbols-outlined text-[#000000] text-[22px]">pets</span>
       </div>
       <div class="flex flex-col">
         <span class="font-headline-sm text-headline-sm tracking-tight text-on-surface font-semibold">Pawread</span>
-        <span class="font-label-sm text-label-sm text-on-surface-variant tracking-wider uppercase">Reading Notes</span>
+        {# <span class="font-label-sm text-label-sm text-on-surface-variant tracking-wider uppercase">Get 10× More from Every Book</span> #}
       </div>
     </div>
 
     <nav class="hidden xl:flex items-center gap-1.5 bg-white/60 p-1.5 rounded-full backdrop-blur-md shadow-[0_2px_8px_rgba(167,139,250,0.04)] ml-auto">
       {% for item in nav %}
-      <a class="font-label-md text-label-md text-on-surface-variant hover:text-on-surface px-3 py-1.5 transition-colors {% if item['key'] == page %}bg-[#000000] text-white rounded-full font-semibold px-3.5 py-1.5 shadow-sm{% end %}"
+      {% set active = item['key'] == page %}
+      <a class="font-label-md text-label-md px-3 py-1.5 transition-colors {% if active %}bg-[#000000] text-white rounded-full font-semibold px-3.5 py-1.5 shadow-sm{% else %}text-on-surface-variant hover:text-on-surface{% end %}"
          href="{{ item['href'] }}" data-i18n="{{ item['i18n'] }}"></a>
       {% end %}
     </nav>
